@@ -30,12 +30,12 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'cloudinary_storage',
-    'django.contrib.staticfiles',
-    'cloudinary',
+    'django.contrib.staticfiles',  # Keep this one
     'reddit',
+    'cloudinary_storage',
+    'cloudinary',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
