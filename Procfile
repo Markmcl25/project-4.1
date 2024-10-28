@@ -1,0 +1,1 @@
+web: guricorn newssite.wsgi
