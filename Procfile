@@ -1,1 +1,1 @@
-web: guricorn newssite.wsgi
+web: gunicorn newssite.wsgi

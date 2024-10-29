@@ -4,4 +4,4 @@ os.environ["DATABASE_URL"] = "postgres://uatgnuff8lt:Zk4G8uvjOOGX@ep-gentle-moun
 
 os.environ["SECRET_KEY"]="Reddit_secret_01"
 
-os.environ["CLOUDINARY_URL"] = "cloudinary://<your_api_key>:<your_api_secret>@djangoblog"
+os.environ["CLOUDINARY_URL"] = "cloudinary://<your_api_key>:<your_api_secret>@reddit-project"
