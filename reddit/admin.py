@@ -21,7 +21,7 @@ class CommentAdmin(admin.ModelAdmin):
     actions = ['approve_comments', 'disapprove_comments']
     ordering = ('-created_on',)  # Orders by created_on in descending order
     date_hierarchy = 'created_on'  # Add date hierarchy for filtering
-    approved = models.BooleanField(default=False)
+    
 
 
 
