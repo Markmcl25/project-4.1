@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Project Home</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Project</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li><a href="{% url 'posts' %}">Posts</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="intro">
+            <h2>Explore Content and Connect</h2>
+            <p>Welcome to the platform! Browse through our latest posts and insights.</p>
+        </section>
+
+        <section id="latest-posts">
+            <h2>Latest Posts</h2>
+            <ul>
+                {% for post in posts %}
+                    <li>
+                        <a href="{% url 'post_detail' post.slug %}">
+                            <h3>{{ post.title }}</h3>
+                        </a>
+                        <p>{{ post.excerpt }}</p>
+                        <p><small>Published on {{ post.created_on }}</small></p>
+                    </li>
+                {% empty %}
+                    <li>No posts to show right now. Check back later!</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Project. All rights reserved.</p>
+    </footer>
+</body>
+</html>
