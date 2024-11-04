@@ -8,5 +8,11 @@ class PostList(generic.ListView):
     template_name = "index.html"
     paginate_by = 6
 
+def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super().get_context_data(**kwargs)
+    
+        return context    
+
 def home(request):
-    return render(request, 'home.html')  # Replace with your actual template name
+    return render(request, 'home.html')  
