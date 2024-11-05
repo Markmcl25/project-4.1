@@ -3,58 +3,41 @@
 {% block title %}Welcome to NewsSite{% endblock %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to NewsSite</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-4">
-        <h1 class="mb-4">Welcome to NewsSite</h1>
-        <p>Your go-to platform for the latest news and trending topics.</p>
-        
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Trending News">
-                    <div class="card-body">
-                        <h5 class="card-title">Trending News</h5>
-                        <p class="card-text">Discover the hottest topics being discussed right now.</p>
-                        <a href="/posts/" class="btn btn-primary">Explore Posts</a>
-                    </div>
+<div class="container mt-4">
+    <h1 class="mb-4">Welcome to NewsSite</h1>
+    <p>Your go-to platform for the latest news and trending topics.</p>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Trending News">
+                <div class="card-body">
+                    <h5 class="card-title">Trending News</h5>
+                    <p class="card-text">Discover the hottest topics being discussed right now.</p>
+                    <a href="/posts/" class="btn btn-primary">Explore Posts</a>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Latest Posts">
-                    <div class="card-body">
-                        <h5 class="card-title">Latest Posts</h5>
-                        <p class="card-text">Catch up on the most recent articles posted by our community.</p>
-                        <a href="/posts/" class="btn btn-primary">View Latest</a>
-                    </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Latest Posts">
+                <div class="card-body">
+                    <h5 class="card-title">Latest Posts</h5>
+                    <p class="card-text">Catch up on the most recent articles posted by our community.</p>
+                    <a href="/posts/" class="btn btn-primary">View Latest</a>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <img src="https://via.placeholder.com/300" class="card-img-top" alt="Join the Discussion">
-                    <div class="card-body">
-                        <h5 class="card-title">Join the Discussion</h5>
-                        <p class="card-text">Engage with others and share your thoughts on various topics.</p>
-                        <a href="/posts/" class="btn btn-primary">Join Now</a>
-                    </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Join the Discussion">
+                <div class="card-body">
+                    <h5 class="card-title">Join the Discussion</h5>
+                    <p class="card-text">Engage with others and share your thoughts on various topics.</p>
+                    <a href="/posts/" class="btn btn-primary">Join Now</a>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+</div>
 {% endblock %}
