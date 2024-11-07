@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Post, Comment
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
 from django_summernote.admin import SummernoteModelAdmin
 
 @admin.register(Post)
@@ -19,7 +21,6 @@ class CommentAdmin(admin.ModelAdmin):
     ordering = ('-created_on',)  # Orders by created_on in descending order
     date_hierarchy = 'created_on'  # Add date hierarchy for filtering
 
-
     def approve_comments(self, request, queryset):
         queryset.update(approved=True)
     approve_comments.short_description = "Approve selected comments"
@@ -27,3 +28,13 @@ class CommentAdmin(admin.ModelAdmin):
     def disapprove_comments(self, request, queryset):
         queryset.update(approved=False)
     disapprove_comments.short_description = "Disapprove selected comments"
+
+# Customize the UserAdmin to display additional fields
+class CustomUserAdmin(UserAdmin):
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_active', 'date_joined')
+    list_filter = ('is_active', 'is_staff', 'is_superuser')
+    search_fields = ('username', 'email', 'first_name', 'last_name')
+
+# Unregister the default User model and register it with CustomUserAdmin
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
