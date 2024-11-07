@@ -21,4 +21,4 @@ def home(request):
 
 # Function-based view for the custom signup page
 def custom_signup(request):
-    return render(request, 'registration/signup.html')  # Explicitly specify the template
+    return render(request, 'registration/signup.html', {'form': SignupForm()})
