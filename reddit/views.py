@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views import generic
 from .models import Post
+from allauth.account.forms import SignupForm
+
 
 # Class-based view for listing posts
 class PostList(generic.ListView):
