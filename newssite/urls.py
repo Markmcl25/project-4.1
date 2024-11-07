@@ -15,13 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from reddit.views import home
+from reddit.views import PostList, custom_signup
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('summernote/', include('django_summernote.urls')),
-    path('', home, name='home'),
-    path('accounts/', include('allauth.urls')),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('', PostList.as_view(), name='home'),  # This is the homepage displaying posts
+    path('accounts/signup/', custom_signup, name='account_signup'),  # Custom signup page
+    path('accounts/', include('allauth.urls')),  # Allauth URLs for authentication
+    path('logout/', LogoutView.as_view(), name='logout'),  # Logout view
 ]
+
