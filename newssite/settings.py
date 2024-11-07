@@ -20,6 +20,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ALLOWED_HOSTS = ['newssite.herokuapp.com', 'localhost', 'reddit-new-2d2861630b68.herokuapp.com','8000-markmcl25-project41-o0vfyfnhrqc.ws-eu116.gitpod.io']
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-markmcl25-project41-o0vfyfnhrqc.ws-eu116.gitpod.io',
+]
 
 # Application definition
 
