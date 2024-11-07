@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cloudinary',
     'django_summernote',
-    'reddit',
+    'REDDIT',
 ]
 
 SITE_ID = 1

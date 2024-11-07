@@ -10,7 +10,7 @@ class PostAdmin(SummernoteModelAdmin):
     list_filter = ('status', 'created_on')
     search_fields = ('title', 'content', 'slug')  # Add search functionality
     ordering = ('-created_on',)  # Orders by created_on in descending order
-    summernote_fields = ('content',)  # Corrected this line
+    summernote_fields = ('content',)  
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
