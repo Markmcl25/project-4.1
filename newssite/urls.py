@@ -23,6 +23,7 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
     path('', PostList.as_view(), name='home'),  # Homepage displaying posts
     path('create_post/', create_post, name='create_post'),
+    path('post/<int:pk>/', PostDetail.as_view(), name='post_detail'),
     path('accounts/signup/', custom_signup, name='account_signup'),  # Custom signup page
     path('accounts/', include('allauth.urls')),  # Allauth URLs for authentication
     path('logout/', LogoutView.as_view(), name='logout'),  # Logout view
