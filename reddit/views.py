@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .forms import PostForm
 from django.views import generic
 from .models import Post
 from allauth.account.forms import SignupForm
@@ -37,3 +38,15 @@ def custom_signup(request):
 
 def signup_confirmation(request):
     return render(request, 'signup_confirmation.html')
+
+# View for creating a new post
+def create_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')  # Redirect to homepage after posting
+    else:
+        form = PostForm()
+
+    return render(request, 'create_post.html', {'form': form})    
