@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from reddit.views import PostList, custom_signup, signup_confirmation, create_post  # Import signup_confirmation and create post
+from reddit.views import PostList, PostDetail, custom_signup, signup_confirmation, create_post
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
