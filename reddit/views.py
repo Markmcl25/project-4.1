@@ -8,7 +8,7 @@ from allauth.account.forms import SignupForm
 class PostList(generic.ListView):
     model = Post
     queryset = Post.objects.filter(status=1).order_by("-created_on")
-    template_name = "index.html"
+    template_name = "home.html"
     paginate_by = 6
 
     def get_context_data(self, **kwargs):
