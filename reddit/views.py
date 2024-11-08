@@ -34,3 +34,6 @@ def custom_signup(request):
     else:
         form = SignupForm()
     return render(request, 'registration/signup.html', {'form': form})
+
+def signup_confirmation(request):
+    return render(request, 'signup_confirmation.html')
