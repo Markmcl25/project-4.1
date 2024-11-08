@@ -25,5 +25,6 @@ urlpatterns = [
     path('accounts/signup/', custom_signup, name='account_signup'),  # Custom signup page
     path('accounts/', include('allauth.urls')),  # Allauth URLs for authentication
     path('logout/', LogoutView.as_view(), name='logout'),  # Logout view
+     path('signup_confirmation/', views.signup_confirmation, name='signup_confirmation'),
 ]
 
