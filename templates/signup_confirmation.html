@@ -1,0 +1,15 @@
+<!-- signup_confirmation.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Signup Successful!</h2>
+    <p>Welcome to NewsSite! You have successfully signed up.</p>
+    <p>What would you like to do next?</p>
+    <ul>
+        <li><a href="{% url 'home' %}">View Articles</a></li>
+        <li><a href="{% url 'create_post' %}">Create a New Post</a></li>
+        <li><a href="{% url 'account_login' %}">Login</a></li>
+    </ul>
+</div>
+{% endblock %}

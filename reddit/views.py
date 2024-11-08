@@ -8,7 +8,8 @@ from allauth.account.forms import SignupForm
 class PostList(generic.ListView):
     model = Post
     queryset = Post.objects.filter(status=1).order_by("-created_on")
-    template_name = "home.html"
+    template_name = 'index.html'
+    context_object_name = 'posts'
     paginate_by = 6
 
     def get_context_data(self, **kwargs):
@@ -19,7 +20,8 @@ class PostList(generic.ListView):
 
 # Function-based view for the home page
 def home(request):
-    return render(request, 'home.html')
+    posts = Post.objects.filter(status=1).order_by("-created_on")  # Fetch posts for the homepage
+    return render(request, 'index.html', {'posts': posts})
 
 # Function-based view for the custom signup page
 def custom_signup(request):
