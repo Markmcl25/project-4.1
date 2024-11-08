@@ -25,4 +25,12 @@ def home(request):
 
 # Function-based view for the custom signup page
 def custom_signup(request):
-    return render(request, 'registration/signup.html', {'form': SignupForm()})
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()  # Save the user data
+            # Redirect to confirmation page after signup
+            return redirect('signup_confirmation')
+    else:
+        form = SignupForm()
+    return render(request, 'registration/signup.html', {'form': form})
