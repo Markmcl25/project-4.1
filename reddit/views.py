@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import PostForm
 from django.views import generic
 from django.views.generic import DetailView
@@ -14,15 +14,16 @@ class PostList(generic.ListView):
     context_object_name = 'posts'
     paginate_by = 6
 
-def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         # You can add more context here if needed
         return context
 
+
 class PostDetail(DetailView):
     model = Post
-    template_name = 'post_detail.html'  # Create this template for rendering the post details
+    template_name = 'post_detail.html'  
     context_object_name = 'post'
 
 # Function-based view for the home page
@@ -42,6 +43,7 @@ def custom_signup(request):
         form = SignupForm()
     return render(request, 'registration/signup.html', {'form': form})
 
+# Sign up confirmation view
 def signup_confirmation(request):
     return render(request, 'signup_confirmation.html')
 
@@ -55,4 +57,4 @@ def create_post(request):
     else:
         form = PostForm()
 
-    return render(request, 'create_post.html', {'form': form})    
+    return render(request, 'create_post.html', {'form': form})

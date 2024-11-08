@@ -18,7 +18,10 @@
                 <ul class="list-group">
                     {% for post in posts %}
                         <li class="list-group-item">
-                            <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
+                            <h3>
+                                <!-- Link to post detail page -->
+                                <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
+                            </h3>
                             <p>{{ post.content|truncatewords:20 }}</p>
                             <small>Posted by {{ post.author }} on {{ post.created_at }}</small>
                         </li>
