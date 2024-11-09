@@ -15,6 +15,9 @@ urlpatterns = [
     # Create post view
     path('create_post/', create_post, name='create_post'),
 
+    # Category view
+    path('category/<slug:category_slug>/', category_view, name='category'),
+
     # Post detail view
     path('post/<int:pk>/', PostDetail.as_view(), name='post_detail'),
 
@@ -32,4 +35,6 @@ urlpatterns = [
 
     # Logged out page
     path('logged-out/', LoggedOutView.as_view(), name='logged_out'),
+
+
 ]
