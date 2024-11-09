@@ -3,6 +3,7 @@ from .forms import PostForm
 from django.views import generic
 from django.views.generic import DetailView
 from .models import Post
+from django.views.generic import TemplateView
 from allauth.account.forms import SignupForm
 
 
@@ -23,6 +24,10 @@ class PostDetail(DetailView):
     model = Post
     template_name = 'post_detail.html'  
     context_object_name = 'post'
+
+
+class LoggedOutView(TemplateView):
+    template_name = 'logged_out.html'    
 
 
 # Function-based view for the custom signup page
