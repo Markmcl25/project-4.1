@@ -8,7 +8,7 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
 
     # Home page showing posts
-    path('', PostList.as_view(), name='home'),  # Using the class-based PostList view
+    path('', PostList.as_view(), name='home'),  # This serves the home page
 
     # Create post view
     path('create_post/', create_post, name='create_post'),

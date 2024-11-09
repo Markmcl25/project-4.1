@@ -15,9 +15,7 @@ class PostList(generic.ListView):
     paginate_by = 6
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        # You can add more context here if needed
         return context
 
 
@@ -26,10 +24,6 @@ class PostDetail(DetailView):
     template_name = 'post_detail.html'  
     context_object_name = 'post'
 
-# Function-based view for the home page
-def home(request):
-    posts = Post.objects.filter(status=1).order_by("-created_on")  # Fetch posts for the homepage
-    return render(request, 'index.html', {'posts': posts})
 
 # Function-based view for the custom signup page
 def custom_signup(request):
