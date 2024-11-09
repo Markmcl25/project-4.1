@@ -23,7 +23,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
 
     # Logout view
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', LogoutView.as_view(next_page='logged_out'), name='logout'),
 
     # Signup confirmation page
     path('signup_confirmation/', signup_confirmation, name='signup_confirmation'),
