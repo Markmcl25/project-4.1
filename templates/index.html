@@ -1,36 +1,30 @@
-{% extends "base.html" %}
-
-{% block title %}NewsSite - Home{% endblock %}
+<!-- index.html -->
+{% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <!-- Welcome Section -->
-    <div class="jumbotron text-center">
-        <h1>Welcome to NewsSite</h1>
-        <p>Explore the latest posts, news, and discussions!</p>
-    </div>
+    <h1>All Posts</h1>
+    <ul>
+        {% for post in posts %}
+            <li><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></li>
+        {% endfor %}
+    </ul>
 
-    <!-- Latest Posts Section -->
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <h2>Latest Posts</h2>
-            {% if posts %}
-                <ul class="list-group">
-                    {% for post in posts %}
-                        <li class="list-group-item">
-                            <h3>
-                                <!-- Link to post detail page -->
-                                <a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a>
-                            </h3>
-                            <p>{{ post.content|truncatewords:20 }}</p>
-                            <small>Posted by {{ post.author }} on {{ post.created_at }}</small>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>No posts available at the moment. Check back later!</p>
+    <!-- Pagination -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if posts.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ posts.previous_page_number }}">previous</a>
             {% endif %}
-        </div>
+            
+            <span class="current">
+                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+            </span>
+            
+            {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}">next</a>
+                <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
     </div>
-</div>
 {% endblock %}
