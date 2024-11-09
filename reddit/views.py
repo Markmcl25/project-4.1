@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PostForm
 from django.views import generic
 from django.views.generic import DetailView
-from .models import Post
+from .models import Post, Category
 from django.views.generic import TemplateView
 from allauth.account.forms import SignupForm
-
+from . import views
 
 # Class-based view for listing posts
 class PostList(generic.ListView):
@@ -57,3 +57,27 @@ def create_post(request):
         form = PostForm()
 
     return render(request, 'create_post.html', {'form': form})
+
+# Edit post view
+def edit_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('post_detail', pk=post.pk)  # Redirect to the post detail page after saving
+    else:
+        form = PostForm(instance=post)    
+
+    return render(request, 'edit_post.html', {'form': form, 'post': post})    
+
+def category_view(request, category_slug):
+    # Get the category based on the slug
+    category = get_object_or_404(Category, slug=category_slug)
+    
+    # Get all posts associated with the category
+    posts = Post.objects.filter(category=category, status=1)  # Only show published posts
+    
+    # Render the category page with posts belonging to the selected category
+    return render(request, 'category.html', {'category': category, 'posts': posts})

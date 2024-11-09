@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
-from reddit.views import PostList, PostDetail, custom_signup, signup_confirmation, create_post, LoggedOutView
-from django.contrib.auth.views import LogoutView  # Make sure this is imported
+from reddit.views import PostList, PostDetail, custom_signup, signup_confirmation, create_post, LoggedOutView, category_view
+from django.contrib.auth.views import LogoutView  
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,7 +17,7 @@ urlpatterns = [
     path('create_post/', create_post, name='create_post'),
 
     # Category view
-    path('category/<slug:category_slug>/', category_view, name='category'),
+    path('category/<slug:category_slug>/', category_view, name='category'),  # Directly using category_view
 
     # Post detail view
     path('post/<int:pk>/', PostDetail.as_view(), name='post_detail'),
@@ -31,13 +32,11 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
 
     # Logout view (using Django's built-in logout)
-    path('logout/', LogoutView.as_view(), name='logout'),  # Make sure this is correctly defined
+    path('logout/', LogoutView.as_view(), name='logout'),  
 
     # Signup confirmation page
     path('signup_confirmation/', signup_confirmation, name='signup_confirmation'),
 
     # Logged out page
     path('logged-out/', LoggedOutView.as_view(), name='logged_out'),
-
-
 ]
