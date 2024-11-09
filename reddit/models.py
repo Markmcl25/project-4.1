@@ -18,12 +18,14 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reddit_posts")
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    # Add a default category (make sure to replace `1` with the appropriate category ID)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
     featured_image = CloudinaryField('image', default='placeholder')
     excerpt = models.TextField(blank=True)
     created_on = models.DateTimeField(auto_now=True)
     status = models.IntegerField(choices=STATUS, default=0)
     likes = models.ManyToManyField(User, related_name='blog_likes', blank=True)
+
 
     class Meta:
         ordering = ['-created_on']

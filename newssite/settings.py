@@ -22,6 +22,8 @@ ALLOWED_HOSTS = ALLOWED_HOSTS = ['newssite.herokuapp.com', 'localhost', 'reddit-
 
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-markmcl25-project41-o0vfyfnhrqc.ws-eu116.gitpod.io',
+    'https://newssite.herokuapp.com',
+    'https://reddit-new-2d2861630b68.herokuapp.com',
 ]
 
 # Application definition
@@ -50,7 +52,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'logged_out'  
 
 

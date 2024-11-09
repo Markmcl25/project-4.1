@@ -4,8 +4,7 @@ from django.shortcuts import redirect
 from reddit.views import (
     PostList, PostDetail, custom_signup, signup_confirmation, create_post, LoggedOutView, category_view, edit_post
 )
-
-from django.contrib.auth.views import LogoutView  
+from django.contrib.auth.views import LogoutView, LoginView  
 
 
 urlpatterns = [
