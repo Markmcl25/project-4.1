@@ -5,12 +5,20 @@ from cloudinary.models import CloudinaryField
 # Status options for the post status field
 STATUS = ((0, "Draft"), (1, "Published"))
 
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True)
+
+    def __str__(self):
+        return self.name
+
 class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reddit_posts")
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     featured_image = CloudinaryField('image', default='placeholder')
     excerpt = models.TextField(blank=True)
     created_on = models.DateTimeField(auto_now=True)
