@@ -1,6 +1,9 @@
 from django.contrib import admin
 from .models import Post, Comment, Category  # Import Category model
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin  # Make sure this is here
 from django_summernote.admin import SummernoteModelAdmin
+
 
 # Register Post model with Summernote and additional configurations
 @admin.register(Post)
