@@ -1,7 +1,5 @@
 from django.contrib import admin
-from .models import Post, Comment
-from django.contrib.auth.models import User
-from django.contrib.auth.admin import UserAdmin
+from .models import Post, Comment, Category  # Import Category model
 from django_summernote.admin import SummernoteModelAdmin
 
 # Register Post model with Summernote and additional configurations
@@ -35,6 +33,15 @@ class CommentAdmin(admin.ModelAdmin):
     def delete_comments(self, request, queryset):
         queryset.delete()
     delete_comments.short_description = "Delete selected comments"
+
+# Register Category model to make it available in the admin
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug')
+    search_fields = ('name', 'slug')
+    prepopulated_fields = {'slug': ('name',)}  # Automatically generate slug from the name
+    ordering = ('name',)  # Orders by name alphabetically
+    list_filter = ('name',)  # Filter by name
 
 # Customize the UserAdmin to display additional fields
 class CustomUserAdmin(UserAdmin):
