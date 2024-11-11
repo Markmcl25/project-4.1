@@ -11,23 +11,25 @@ from . import views
 class PostList(generic.ListView):
     model = Post
     queryset = Post.objects.filter(status=1).order_by("-created_on")
-    template_name = 'index.html'
+    template_name = 'home.html'  # Use 'home.html' as the template
     context_object_name = 'posts'
     paginate_by = 6
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # Add categories to the context
+        context['categories'] = Category.objects.all()
         return context
 
 
 class PostDetail(DetailView):
     model = Post
-    template_name = 'post_detail.html'  
+    template_name = 'post_detail.html'
     context_object_name = 'post'
 
 
 class LoggedOutView(TemplateView):
-    template_name = 'logged_out.html'    
+    template_name = 'logged_out.html'
 
 
 # Function-based view for the custom signup page
@@ -68,16 +70,16 @@ def edit_post(request, pk):
             form.save()
             return redirect('post_detail', pk=post.pk)  # Redirect to the post detail page after saving
     else:
-        form = PostForm(instance=post)    
+        form = PostForm(instance=post)
 
-    return render(request, 'edit_post.html', {'form': form, 'post': post})    
+    return render(request, 'edit_post.html', {'form': form, 'post': post})
 
 def category_view(request, category_slug):
     # Get the category based on the slug
     category = get_object_or_404(Category, slug=category_slug)
-    
+
     # Get all posts associated with the category
     posts = Post.objects.filter(category=category, status=1)  # Only show published posts
-    
+
     # Render the category page with posts belonging to the selected category
     return render(request, 'category.html', {'category': category, 'posts': posts})
