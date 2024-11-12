@@ -25,7 +25,7 @@ urlpatterns = [
     path('post/<int:pk>/', PostDetail.as_view(), name='post_detail'),
 
     # Post Creation Page
-    path('post/edit/<int:pk>/', edit_post, name='edit_post'),
+    path('post/edit/<int:pk>/', edit_post, name='create_post'),
 
     # Custom signup page
     path('accounts/signup/', custom_signup, name='account_signup'),
