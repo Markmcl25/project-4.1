@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.forms import UserCreationForm
 from .forms import PostForm
 from django.views import generic
 from django.views.generic import DetailView
@@ -38,16 +39,17 @@ def custom_signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
-            form.save()  # Save the user data
-            # Redirect to confirmation page after signup
-            return redirect('signup_confirmation')
+            # Pass the request to save the form properly
+            user = form.save(request)
+            login(request, user)
+            messages.success(request, "You have successfully signed up!")
+            return redirect('home')
+        else:
+            messages.error(request, "Please correct the error below.")
     else:
         form = SignupForm()
-    return render(request, 'registration/signup.html', {'form': form})
-
-# Sign up confirmation view
-def signup_confirmation(request):
-    return render(request, 'signup_confirmation.html')
+    
+    return render(request, 'signup.html', {'form': form})
 
 # View for creating a new post
 @login_required
