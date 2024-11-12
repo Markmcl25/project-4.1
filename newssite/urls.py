@@ -37,9 +37,6 @@ urlpatterns = [
     # Login page
     path('accounts/login/', LoginView.as_view(template_name='login.html'), name='login'),
 
-    # Logout view (using Django's built-in logout)
-    path('logout/', LogoutView.as_view(), name='logout'),
-
     # Logged out page
     path('logged-out/', LoggedOutView.as_view(), name='logged_out'),
 ]
