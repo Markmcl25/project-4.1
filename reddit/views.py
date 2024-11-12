@@ -4,6 +4,7 @@ from django.views import generic
 from django.views.generic import DetailView
 from .models import Post, Category
 from django.views.generic import TemplateView
+from django.contrib.auth.decorators import login_required
 from allauth.account.forms import SignupForm
 from . import views
 
@@ -49,15 +50,18 @@ def signup_confirmation(request):
     return render(request, 'signup_confirmation.html')
 
 # View for creating a new post
+@login_required
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('home')  # Redirect to homepage after posting
+            post = form.save(commit=False)
+            post.author = request.user  # Set the logged-in user as the author
+            post.save()
+            return redirect('home')  # Redirect to the home page after saving the post
     else:
         form = PostForm()
-
+    
     return render(request, 'create_post.html', {'form': form})
 
 # Edit post view
