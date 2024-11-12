@@ -2,8 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
 from reddit.views import (
-    PostList, PostDetail, custom_signup, signup_confirmation, create_post, LoggedOutView, category_view, edit_post
-)
+    PostList, PostDetail, custom_signup, signup_confirmation, create_post, LoggedOutView, category_view, edit_post)
 from django.contrib.auth.views import LogoutView, LoginView
 
 urlpatterns = [
@@ -37,6 +36,9 @@ urlpatterns = [
 
     # Login page
     path('accounts/login/', LoginView.as_view(template_name='login.html'), name='login'),
+
+    # Logout view (using Django's built-in logout)
+    path('logout/', LogoutView.as_view(), name='logout'),
 
     # Logged out page
     path('logged-out/', LoggedOutView.as_view(), name='logged_out'),
