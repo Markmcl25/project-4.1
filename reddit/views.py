@@ -33,7 +33,6 @@ class PostDetail(DetailView):
 class LoggedOutView(TemplateView):
     template_name = 'logged_out.html'
 
-
 # Function-based view for the custom signup page
 def custom_signup(request):
     if request.method == 'POST':
@@ -50,6 +49,9 @@ def custom_signup(request):
         form = SignupForm()
     
     return render(request, 'signup.html', {'form': form})
+
+def signup_confirmation(request):
+    return render(request, 'signup_confirmation.html')    
 
 # View for creating a new post
 @login_required
