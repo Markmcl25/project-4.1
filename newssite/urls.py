@@ -22,6 +22,9 @@ urlpatterns = [
     # Post detail view
     path('post/<int:pk>/', PostDetail.as_view(), name='post_detail'),
 
+    # Post list
+    path('posts/', views.post_list, name='post_list'),
+
     # Custom signup page
     path('accounts/signup/', custom_signup, name='account_signup'),
 

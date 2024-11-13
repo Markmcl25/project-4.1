@@ -35,9 +35,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.sites',
+    'crispy_forms',
     'allauth',
     'allauth.account',
-    'crispy_forms'
     'allauth.socialaccount',
     'cloudinary_storage',
     'django.contrib.staticfiles',
@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django_summernote',
     'reddit',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 SITE_ID = 1
 
