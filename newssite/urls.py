@@ -11,19 +11,15 @@ urlpatterns = [
 
     # Home page showing posts
     path('', PostList.as_view(), name='home'),
-    path('home/', lambda request: redirect('home')),  # Redirect /home to the homepage
 
     # Create post view
-    path('create/', create_post, name='create_post'),  # URL for creating a new post
+    path('create/', create_post, name='create_post'),
 
     # Category view
-    path('category/<slug:category_slug>/', category_view, name='category'),  # Directly using category_view
+    path('category/<slug:category_slug>/', category_view, name='category'),
 
     # Post detail view
     path('post/<int:pk>/', PostDetail.as_view(), name='post_detail'),
-
-    # Post list
-    path('posts/', views.post_list, name='post_list'),
 
     # Custom signup page
     path('accounts/signup/', custom_signup, name='account_signup'),

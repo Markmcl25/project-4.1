@@ -40,9 +40,8 @@ def custom_signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
-            # Pass the request to save the form properly
-            user = form.save(request)
-            login(request, user)
+            user = form.save()  # Save the form, no need to pass `request` here
+            login(request, user)  # Log the user in after successful signup
             messages.success(request, "You have successfully signed up!")
             return redirect('home')
         else:
@@ -51,6 +50,7 @@ def custom_signup(request):
         form = SignupForm()
     
     return render(request, 'account/signup.html', {'form': form})
+
 
 def signup_confirmation(request):
     return render(request, 'signup_confirmation.html')    
