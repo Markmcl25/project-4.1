@@ -8,6 +8,8 @@ from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from allauth.account.forms import SignupForm
 from . import views
+from django.contrib import messages
+from django.contrib.auth import login
 
 # Class-based view for listing posts
 class PostList(generic.ListView):
@@ -48,7 +50,7 @@ def custom_signup(request):
     else:
         form = SignupForm()
     
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'account/signup.html', {'form': form})
 
 def signup_confirmation(request):
     return render(request, 'signup_confirmation.html')    
