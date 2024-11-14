@@ -1,31 +1,31 @@
-{% load static %}
 {% extends "base.html" %}
-
-{% block head %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-  <div class="row">
-    <div class="col-md-8 offset-md-2">
-      <h3 class="mb-4">{% trans "Sign Up" %}</h3>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h3 class="card-title mb-4">{% trans "Sign Up" %}</h3>
 
-      <p>{% blocktrans %}Welcome to NewsSite. Already have an account?{% endblocktrans %}
-        <a class="link" href="{% url 'account_login' %}">{% trans "Sign in here" %}</a> .
-      </p>
+          <p class="card-text">
+            {% blocktrans %}Welcome to NewsSite. Already have an account?{% endblocktrans %}
+            <a class="link" href="{% url 'account_login' %}">{% trans "Sign in here" %}</a>.
+          </p>
 
-      <form class="signup-form" id="signup_form" method="post" action="{% url 'account_signup' %}">
-        {% csrf_token %}
-        {{ form|crispy }}
-        {% if redirect_field_value %}
-          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <button class="btn btn-primary mt-3" type="submit">{% trans "Sign Up" %}</button>
-      </form>
+          <form class="signup-form" id="signup_form" method="post" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <button class="btn btn-primary mt-3 w-100" type="submit">{% trans "Sign Up" %}</button>
+          </form>
+        </div>
+      </div>
 
       <!-- Go to Home link -->
-      <div class="mt-4">
+      <div class="text-center mt-4">
         <a href="{% url 'home' %}" class="text-decoration-none">{% trans "Go to Home" %}</a>
       </div>
     </div>
