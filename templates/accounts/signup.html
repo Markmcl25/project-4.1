@@ -1,9 +1,9 @@
+{% load static %}
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
-{% load i18n %}
-{% load account socialaccount %}
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
@@ -12,7 +12,7 @@
       <h3 class="mb-4">{% trans "Sign Up" %}</h3>
 
       <p>{% blocktrans %}Welcome to NewsSite. Already have an account?{% endblocktrans %}
-        <a class="link" href="{% url 'account_login' %}">{% trans "Sign in here" %}</a>.
+        <a class="link" href="{% url 'account_login' %}">{% trans "Sign in here" %}</a> .
       </p>
 
       <form class="signup-form" id="signup_form" method="post" action="{% url 'account_signup' %}">

@@ -38,9 +38,9 @@ class LoggedOutView(TemplateView):
 # Function-based view for the custom signup page
 def custom_signup(request):
     if request.method == 'POST':
-        form = SignupForm(request.POST)  # Only pass request.POST here
+        form = SignupForm(data=request.POST)  # Pass data without the request parameter
         if form.is_valid():
-            user = form.save()  # This will automatically handle user creation
+            user = form.save(request=request)  # Pass the request only to save()
             login(request, user)  # Log the user in after successful signup
             messages.success(request, "You have successfully signed up!")
             return redirect('signup_confirmation')
@@ -48,11 +48,9 @@ def custom_signup(request):
             messages.error(request, "Please correct the error below.")
     else:
         form = SignupForm()  # Initialize the form without passing request
-    
+
     return render(request, 'account/signup.html', {'form': form})
 
-def signup_confirmation(request):
-    return render(request, 'signup_confirmation.html')    
  
 # View for creating a new post
 @login_required
@@ -92,3 +90,6 @@ def category_view(request, category_slug):
 
     # Render the category page with posts belonging to the selected category
     return render(request, 'category.html', {'category': category, 'posts': posts})
+
+def signup_confirmation(request):
+    return render(request, 'signup_confirmation.html')

@@ -12,5 +12,3 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'category']  
-
-    category = forms.ModelChoiceField(queryset=Category.objects.all(), empty_label="Select a Category")        
