@@ -25,6 +25,23 @@ class PostList(generic.ListView):
         context['categories'] = Category.objects.all()
         return context
 
+def post_list_and_create(request):
+    # Handle new post creation
+    if request.method == 'POST':
+        form = PostForm(request.POST)
+        if form.is_valid():
+            new_post = form.save(commit=False)
+            new_post.author = request.user  # You can set the author to the logged-in user
+            new_post.save()  # Save the new post to the database
+            return redirect('posts')  # Redirect back to the posts page to show the new post
+    else:
+        form = PostForm()  # Empty form for new post creation
+
+    # Fetch all posts to display them on the page
+    posts = Post.objects.all().order_by('-created_on')
+
+    return render(request, 'posts.html', {'form': form, 'posts': posts})        
+
 
 class PostDetail(DetailView):
     model = Post
