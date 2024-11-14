@@ -2,27 +2,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2 class="mb-4">Posts</h2>
-    {% if posts %}
-        <div class="row">
-            {% for post in posts %}
-                <div class="col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ post.title }}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">
-                                By {{ post.author }} | {{ post.created_at|date:"F j, Y" }}
-                            </h6>
-                            <p class="card-text">
-                                {{ post.content|truncatewords:30 }}
-                            </p>
-                            <a href="{% url 'post_detail' post.id %}" class="card-link">Read more</a>
-                        </div>
+<div class="mb-4">
+    <h3>Create a New Post</h3>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Create Post</button>
+    </form>
+</div>
+
+<!-- Display the list of posts -->
+{% if posts %}
+    <div class="row">
+        {% for post in posts %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            By {{ post.author }} | {{ post.created_on|date:"F j, Y" }}
+                        </h6>
+                        <p class="card-text">{{ post.content|truncatewords:30 }}</p>
+                        <a href="{% url 'post_detail' post.id %}" class="card-link">Read more</a>
                     </div>
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
+    </div>
     {% else %}
         <p>No posts available at the moment.</p>
     {% endif %}
