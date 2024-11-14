@@ -43,7 +43,7 @@ def custom_signup(request):
             user = form.save()  # This will automatically handle user creation
             login(request, user)  # Log the user in after successful signup
             messages.success(request, "You have successfully signed up!")
-            return redirect('home')
+            return redirect('signup_confirmation')
         else:
             messages.error(request, "Please correct the error below.")
     else:

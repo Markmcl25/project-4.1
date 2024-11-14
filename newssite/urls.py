@@ -1,6 +1,5 @@
 from django.contrib import admin
 from django.urls import path, include
-from django.shortcuts import redirect
 from reddit.views import (
     PostList, PostDetail, custom_signup, signup_confirmation, create_post, LoggedOutView, category_view, edit_post)
 from django.contrib.auth.views import LogoutView, LoginView
@@ -24,14 +23,14 @@ urlpatterns = [
     # Custom signup page
     path('accounts/signup/', custom_signup, name='account_signup'),
 
+    # Signup confirmation
+    path('signup/confirmation/', signup_confirmation, name='signup_confirmation'),
+
     # Allauth URLs for authentication
     path('accounts/', include('allauth.urls')),
 
     # Logout view (using Django's built-in logout)
     path('logout/', LogoutView.as_view(), name='logout'),  
-
-    # Signup confirmation page
-    path('signup_confirmation/', signup_confirmation, name='signup_confirmation'),
 
     # Login page
     path('accounts/login/', LoginView.as_view(template_name='login.html'), name='login'),
