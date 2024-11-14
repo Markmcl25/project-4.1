@@ -40,8 +40,8 @@ def custom_signup(request):
     if request.method == 'POST':
         form = SignupForm(data=request.POST)  # Pass data without the request parameter
         if form.is_valid():
-            user = form.save(request=request)  # Pass the request only to save()
-            login(request, user)  # Log the user in after successful signup
+            user = form.save()  # Don't pass the request here, Allauth handles it internally
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')  # Explicitly specify the backend
             messages.success(request, "You have successfully signed up!")
             return redirect('signup_confirmation')
         else:
@@ -50,7 +50,6 @@ def custom_signup(request):
         form = SignupForm()  # Initialize the form without passing request
 
     return render(request, 'account/signup.html', {'form': form})
-
  
 # View for creating a new post
 @login_required
