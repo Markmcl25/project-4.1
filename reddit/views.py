@@ -2,14 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from .forms import PostForm
 from django.views import generic
-from django.views.generic import DetailView
+from django.views.generic import DetailView, CreateView, TemplateView
 from .models import Post, Category
-from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from allauth.account.forms import SignupForm
-from . import views
 from django.contrib import messages
 from django.contrib.auth import login
+from django.urls import reverse_lazy  # Needed for success URL in class-based views
 
 # Class-based view for listing posts
 class PostList(generic.ListView):
@@ -25,22 +24,17 @@ class PostList(generic.ListView):
         context['categories'] = Category.objects.all()
         return context
 
-def post_list_and_create(request):
-    # Handle new post creation
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            new_post = form.save(commit=False)
-            new_post.author = request.user  # You can set the author to the logged-in user
-            new_post.save()  # Save the new post to the database
-            return redirect('posts')  # Redirect back to the posts page to show the new post
-    else:
-        form = PostForm()  # Empty form for new post creation
 
-    # Fetch all posts to display them on the page
-    posts = Post.objects.all().order_by('-created_on')
+# Class-based view for creating a new post
+class CreatePostView(CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'create_post.html'
+    success_url = reverse_lazy('home')  # Redirect to home after successful post creation
 
-    return render(request, 'posts.html', {'form': form, 'posts': posts})        
+    def form_valid(self, form):
+        form.instance.author = self.request.user  # Set the logged-in user as the author
+        return super().form_valid(form)
 
 
 class PostDetail(DetailView):
@@ -51,6 +45,7 @@ class PostDetail(DetailView):
 
 class LoggedOutView(TemplateView):
     template_name = 'logged_out.html'
+
 
 # Function-based view for the custom signup page
 def custom_signup(request):
@@ -67,23 +62,10 @@ def custom_signup(request):
         form = SignupForm()  # Initialize the form without passing request
 
     return render(request, 'account/signup.html', {'form': form})
- 
-# View for creating a new post
-@login_required
-def create_post(request):
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user  # Set the logged-in user as the author
-            post.save()
-            return redirect('home')  # Redirect to the home page after saving the post
-    else:
-        form = PostForm()
-    
-    return render(request, 'create_post.html', {'form': form})
+
 
 # Edit post view
+@login_required
 def edit_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
@@ -97,6 +79,7 @@ def edit_post(request, pk):
 
     return render(request, 'edit_post.html', {'form': form, 'post': post})
 
+
 def category_view(request, category_slug):
     # Get the category based on the slug
     category = get_object_or_404(Category, slug=category_slug)
@@ -106,6 +89,7 @@ def category_view(request, category_slug):
 
     # Render the category page with posts belonging to the selected category
     return render(request, 'category.html', {'category': category, 'posts': posts})
+
 
 def signup_confirmation(request):
     return render(request, 'signup_confirmation.html')
