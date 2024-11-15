@@ -3,23 +3,48 @@
 {% block title %}Create a New Post{% endblock %}
 
 {% block content %}
+    <h1>Create a New Post</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <!-- Title Field -->
+        <div class="form-group">
+            <label for="id_title">Title</label>
+            <input type="text" class="form-control" id="id_title" name="title" value="{{ form.title.value|default:'' }}">
+        </div>
+        
+        <!-- Content Field -->
+        <div class="form-group">
+            <label for="id_content">Content</label>
+            <textarea class="form-control" id="id_content" name="content">{{ form.content.value|default:'' }}</textarea>
+        </div>
 
-<h1>Create a New Post</h1>
-<form method="post" action="{% url 'create_post' %}">
-    {% csrf_token %}
-    <div class="form-group">
-        <label for="id_title">Title</label>
-        {{ form.title }}
-    </div>
-    <div class="form-group">
-        <label for="id_content">Content</label>
-        {{ form.content }}
-    </div>
-    <div class="form-group">
-        <label for="id_category">Category</label>
-        {{ form.category }} <!-- Category dropdown field -->
-    </div>
-    <button type="submit" class="btn btn-primary">Submit Post</button>
-</form>
+        <!-- Category Dropdown -->
+        <div class="form-group">
+            <label for="id_category">Category</label>
+            <select class="form-control" id="id_category" name="category">
+                {% for category in form.category.field.queryset %}
+                    <option value="{{ category.id }}" {% if category.id == form.category.value %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Submit Post</button>
+    </form>
 
+    <!-- Displaying form errors -->
+    {% if form.errors %}
+        <div class="alert alert-danger mt-3">
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 {% endblock %}

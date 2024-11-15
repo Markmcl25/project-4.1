@@ -14,7 +14,7 @@ from django.urls import reverse_lazy  # Needed for success URL in class-based vi
 class PostList(generic.ListView):
     model = Post
     queryset = Post.objects.filter(status=1).order_by("-created_on")
-    template_name = 'home.html'  # Use 'home.html' as the template
+    template_name = 'posts.html'  # Use 'home.html' as the template
     context_object_name = 'posts'
     paginate_by = 6
 
