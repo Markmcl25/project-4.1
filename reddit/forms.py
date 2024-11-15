@@ -21,3 +21,7 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'category']
+
+    title = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Post Title'}))
+    content = forms.CharField(widget=forms.Textarea(attrs={'placeholder': 'Write your post content here...'}))
+    category = forms.ModelChoiceField(queryset=Category.objects.all())

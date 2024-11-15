@@ -1,35 +1,36 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<div class="mb-4">
     <h3>Create a New Post</h3>
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}  <!-- Simple form rendering without crispy filter -->
+        
+        <!-- Use crispy forms to render the form with Bootstrap classes -->
+        {{ form.title|crispy }}
+        {{ form.content|crispy }}
+        {{ form.category|crispy }}
+
         <button type="submit" class="btn btn-primary">Create Post</button>
     </form>
-</div>
 
-<!-- Display the list of posts -->
-{% if posts %}
-    <div class="row">
-        {% for post in posts %}
-            <div class="col-md-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ post.title }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">
-                            By {{ post.author }} | {{ post.created_on|date:"F j, Y" }}
-                        </h6>
-                        <p class="card-text">{{ post.content|truncatewords:30 }}</p>
-                        <a href="{% url 'post_detail' post.id %}" class="card-link">Read more</a>
+    <!-- Displaying posts list -->
+    {% if posts %}
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">By {{ post.author }} | {{ post.created_on|date:"F j, Y" }}</h6>
+                            <p class="card-text">{{ post.content|truncatewords:30 }}</p>
+                            <a href="{% url 'post_detail' post.id %}" class="card-link">Read more</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
-    </div>
-{% else %}
-    <p>No posts available at the moment.</p>
-{% endif %}
-</div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No posts available at the moment.</p>
+    {% endif %}
 {% endblock %}
