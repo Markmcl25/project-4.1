@@ -30,13 +30,18 @@ class CreatePostView(CreateView):
     model = Post
     form_class = PostForm
     template_name = 'create_post.html'
-    success_url = reverse_lazy('home')  # Redirect to home after successful post creation
+    
+    # Redirect to post list or homepage after a successful post creation
+    success_url = reverse_lazy('posts')  # Adjust as needed (e.g., 'home' or 'posts')
 
     def form_valid(self, form):
         form.instance.author = self.request.user  # Set the logged-in user as the author
-        return super().form_valid(form)
+        post = form.save()  # Save the post
+        messages.success(self.request, 'Post created successfully!')  # Show success message
+        return redirect(self.success_url)  # Redirect to the post list or home page
 
     def form_invalid(self, form):
+        # In case of form errors, re-render the form with errors
         context = self.get_context_data(form=form)
         return self.render_to_response(context)
 

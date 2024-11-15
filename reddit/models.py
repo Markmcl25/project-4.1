@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 from cloudinary.models import CloudinaryField
+import uuid
 
 # Status options for the post status field
 STATUS = ((0, "Draft"), (1, "Published"))
@@ -14,7 +16,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=200, unique=True)
-    slug = models.SlugField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True, blank=True)  # Allow blank initially
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reddit_posts")
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
@@ -26,7 +28,6 @@ class Post(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     likes = models.ManyToManyField(User, related_name='blog_likes', blank=True)
 
-
     class Meta:
         ordering = ['-created_on']
 
@@ -36,6 +37,11 @@ class Post(models.Model):
     def number_of_likes(self):
         return self.likes.count()
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            # Automatically generate a slug if it doesn't exist
+            self.slug = slugify(self.title) + "-" + str(uuid.uuid4())[:8]  # Unique slug with title + UUID
+        super().save(*args, **kwargs)
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
