@@ -22,8 +22,8 @@ class PostList(generic.ListView):
         context = super().get_context_data(**kwargs)
         # Add categories to the context
         context['categories'] = Category.objects.all()
+        context['form'] = PostForm()  # Add the PostForm to the context to show the form on the same page
         return context
-
 
 # Class-based view for creating a new post
 class CreatePostView(CreateView):
@@ -36,16 +36,19 @@ class CreatePostView(CreateView):
         form.instance.author = self.request.user  # Set the logged-in user as the author
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        context = self.get_context_data(form=form)
+        return self.render_to_response(context)
 
+# Class-based view for viewing a single post
 class PostDetail(DetailView):
     model = Post
     template_name = 'post_detail.html'
     context_object_name = 'post'
 
-
+# Class-based view for logged-out users
 class LoggedOutView(TemplateView):
     template_name = 'logged_out.html'
-
 
 # Function-based view for the custom signup page
 def custom_signup(request):
@@ -63,7 +66,6 @@ def custom_signup(request):
 
     return render(request, 'account/signup.html', {'form': form})
 
-
 # Edit post view
 @login_required
 def edit_post(request, pk):
@@ -79,7 +81,7 @@ def edit_post(request, pk):
 
     return render(request, 'edit_post.html', {'form': form, 'post': post})
 
-
+# Category view
 def category_view(request, category_slug):
     # Get the category based on the slug
     category = get_object_or_404(Category, slug=category_slug)
@@ -90,6 +92,6 @@ def category_view(request, category_slug):
     # Render the category page with posts belonging to the selected category
     return render(request, 'category.html', {'category': category, 'posts': posts})
 
-
+# Signup confirmation page
 def signup_confirmation(request):
     return render(request, 'signup_confirmation.html')
