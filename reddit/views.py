@@ -58,19 +58,32 @@ class LoggedOutView(TemplateView):
 # Function-based view for the custom signup page
 def custom_signup(request):
     if request.method == 'POST':
-        form = SignupForm(request.POST)  # Pass the POST data
+        form = SignupForm(request.POST)
         if form.is_valid():
-            # Pass the request to the save method
-            user = form.save()  # Do not pass request here
-            login(request, user, backend='django.contrib.auth.backends.ModelBackend')  # Log in the user after successful signup
-            messages.success(request, "You have successfully signed up!")  # Success message
-            return redirect('home')  # Redirect to the homepage after signup
+            user = form.save(request)  # Pass the request to save
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            messages.success(request, "You have successfully signed up!")
+            return redirect('home')
         else:
-            messages.error(request, "Please correct the error below.")
+            messages.error(request, "Please correct the errors below.")
     else:
-        form = SignupForm()  # Initialize the form without POST data
+        form = SignupForm()
 
     return render(request, 'accounts/signup.html', {'form': form})
+
+def custom_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            login(request, form.get_user())
+            messages.success(request, "You have successfully logged in!")
+            return redirect('home')  # Redirect to homepage or other location
+        else:
+            messages.error(request, "Invalid username or password. Please try again.")
+    else:
+        form = AuthenticationForm()
+
+    return render(request, 'accounts/login.html', {'form': form})
 
 # Edit post view
 @login_required
