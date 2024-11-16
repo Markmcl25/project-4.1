@@ -1,5 +1,4 @@
-/* styles.css */
-
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -43,3 +42,74 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+/* Allauth Login Page Specific Styles */
+.account-container {
+    max-width: 450px;
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.account .card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.account .card-body {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.account .card-title {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}
+
+.account .form-group label {
+    font-weight: bold;
+    color: #333;
+}
+
+.account .form-control {
+    border-radius: 5px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+}
+
+.account .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+}
+
+.account .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.account .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.account .text-center {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.account .text-center a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.account .text-center a:hover {
+    text-decoration: underline;
+}
+
+

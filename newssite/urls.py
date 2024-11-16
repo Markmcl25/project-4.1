@@ -48,10 +48,10 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
 
     # Login page (for signing in users)
-    path('accounts/login/', LoginView.as_view(template_name='login.html'), name='login'),
+    path('accounts/login/', LoginView.as_view(template_name='accounts/login.html'), name='login'),
 
     # Logged out page (redirects after logging out)
-    path('logged-out/', LoggedOutView.as_view(), name='logged_out'),
+    path('logged_out/', LoggedOutView.as_view(), name='logged_out'),
 
     # Password reset URLs
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),

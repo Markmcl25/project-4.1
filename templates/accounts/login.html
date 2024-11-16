@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>DEBUG: Template Loaded</h1>
+    <style>
+    body {
+        background-color: lightblue !important;
+    }
+    </style>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">{% trans "Sign In" %}</h3>
+
+                    <!-- Informative text -->
+                    <p class="card-text mb-4">
+                        {% blocktrans %}If you have not created an account yet, then please {% endblocktrans %}
+                        <a href="{% url 'signup' %}">{% trans "sign up" %}</a> 
+                        {% blocktrans %}first.{% endblocktrans %}
+                    </p>
+
+                    <!-- Form for login -->
+                    <form method="POST" action="{% url 'login' %}">
+                        {% csrf_token %}
+
+                        <!-- Username field -->
+                        <div class="form-group">
+                            <label for="id_username">{% trans "Username" %}:</label>
+                            {{ form.username|add_class:"form-control" }}
+                        </div>
+
+                        <!-- Password field -->
+                        <div class="form-group">
+                            <label for="id_password">{% trans "Password" %}:</label>
+                            {{ form.password|add_class:"form-control" }}
+                        </div>
+
+                        <!-- Remember me checkbox -->
+                        <div class="form-check">
+                            {{ form.remember|add_class:"form-check-input" }}
+                            <label class="form-check-label" for="id_remember">{% trans "Remember Me" %}</label>
+                        </div>
+
+                        <!-- Forgot password link -->
+                        <div class="form-group mt-2">
+                            <a href="{% url 'account_reset_password' %}" class="text-decoration-none">{% trans "Forgot your password?" %}</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-3 w-100">{% trans "Sign In" %}</button>
+                    </form>
+
+                    <!-- Go to Home link -->
+                    <div class="text-center mt-4">
+                        <a href="{% url 'home' %}" class="text-decoration-none">{% trans "Go to Home" %}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

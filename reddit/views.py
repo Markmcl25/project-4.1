@@ -58,18 +58,19 @@ class LoggedOutView(TemplateView):
 # Function-based view for the custom signup page
 def custom_signup(request):
     if request.method == 'POST':
-        form = SignupForm(data=request.POST)  # Pass data without the request parameter
+        form = SignupForm(request.POST)  # Pass the POST data
         if form.is_valid():
-            user = form.save()  # Don't pass the request here, Allauth handles it internally
-            login(request, user, backend='django.contrib.auth.backends.ModelBackend')  # Explicitly specify the backend
-            messages.success(request, "You have successfully signed up!")
-            return redirect('signup_confirmation')
+            # Pass the request to the save method
+            user = form.save()  # Do not pass request here
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')  # Log in the user after successful signup
+            messages.success(request, "You have successfully signed up!")  # Success message
+            return redirect('home')  # Redirect to the homepage after signup
         else:
             messages.error(request, "Please correct the error below.")
     else:
-        form = SignupForm()  # Initialize the form without passing request
+        form = SignupForm()  # Initialize the form without POST data
 
-    return render(request, 'account/signup.html', {'form': form})
+    return render(request, 'accounts/signup.html', {'form': form})
 
 # Edit post view
 @login_required
