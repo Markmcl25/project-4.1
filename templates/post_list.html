@@ -1,12 +1,70 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>All Posts</h1>
-  <ul>
-    {% for post in posts %}
-      <li>{{ post.title }}</li>
-    {% empty %}
-      <li>No posts available</li>
-    {% endfor %}
-  </ul>
+<div class="container mt-4">
+    <h1>Your Posts</h1>
+
+    <!-- Display success messages -->
+    {% if messages %}
+    <div class="alert alert-success">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Display list of posts -->
+    {% if posts %}
+    <ul class="list-group">
+        {% for post in posts %}
+        <li class="list-group-item d-flex align-items-center">
+            <!-- Post Image -->
+            {% if post.image %}
+            <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-thumbnail me-3" style="width: 100px; height: auto;">
+            {% else %}
+            <img src="https://via.placeholder.com/100" alt="Placeholder" class="img-thumbnail me-3" style="width: 100px; height: auto;">
+            {% endif %}
+
+            <!-- Post Details -->
+            <div>
+                <h5 class="mb-1">
+                    <a href="{% url 'post_detail' post.id %}" class="text-decoration-none">{{ post.title }}</a>
+                </h5>
+                <p class="mb-1">{{ post.content|truncatewords:15 }}</p>
+                <small class="text-muted">Created on {{ post.created_on|date:"F j, Y" }}</small>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Pagination -->
+    {% if posts.has_other_pages %}
+    <nav aria-label="Posts Pagination">
+        <ul class="pagination justify-content-center mt-4">
+            {% if posts.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1" aria-label="First">&laquo;</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a>
+            </li>
+            {% endif %}
+            <li class="page-item disabled">
+                <span class="page-link">Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
+            </li>
+            {% if posts.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ posts.paginator.num_pages }}" aria-label="Last">&raquo;</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+    {% else %}
+    <p>You haven't created any posts yet.</p>
+    {% endif %}
+</div>
 {% endblock %}

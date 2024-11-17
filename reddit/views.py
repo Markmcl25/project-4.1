@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm  # Added AuthenticationForm for custom login
 from .forms import PostForm
 from django.views import generic
-from django.views.generic import DetailView, CreateView, TemplateView
+from django.views.generic import DetailView, CreateView, TemplateView, ListView
 from .models import Post, Category
 from django.contrib.auth.decorators import login_required
 from allauth.account.forms import SignupForm
@@ -14,9 +14,10 @@ from django.urls import reverse_lazy  # Needed for success URL in class-based vi
 class PostList(generic.ListView):
     model = Post
     queryset = Post.objects.filter(status=1).order_by("-created_on")
-    template_name = 'posts.html'  # Use 'home.html' as the template
+    template_name = 'post_list.html'  
     context_object_name = 'posts'
     paginate_by = 6
+    queryset = Post.objects.filter(status=1).order_by("-created_on")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
