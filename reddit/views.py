@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm  # Added AuthenticationForm for custom login
 from .forms import PostForm
 from django.views import generic
 from django.views.generic import DetailView, CreateView, TemplateView
@@ -71,6 +71,7 @@ def custom_signup(request):
 
     return render(request, 'accounts/signup.html', {'form': form})
 
+# Custom login view
 def custom_login(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)

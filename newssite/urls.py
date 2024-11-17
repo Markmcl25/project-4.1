@@ -4,13 +4,14 @@ from reddit.views import (
     PostList,
     PostDetail,
     custom_signup,
+    custom_login,  # Added custom login view
     signup_confirmation,
     LoggedOutView,
     category_view,
     edit_post,
-    CreatePostView,  # Import the correct class-based view
+    CreatePostView,
 )
-from django.contrib.auth.views import LogoutView, LoginView
+from django.contrib.auth.views import LogoutView
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -21,7 +22,7 @@ urlpatterns = [
     path('', PostList.as_view(template_name='home.html'), name='home'),
 
     # Create post view (form for creating posts)
-    path('create/', CreatePostView.as_view(), name='create_post'),  # Updated to use CreatePostView
+    path('create/', CreatePostView.as_view(), name='create_post'),
 
     # Category view (displays posts under a specific category)
     path('category/<slug:category_slug>/', category_view, name='category'),
@@ -38,6 +39,9 @@ urlpatterns = [
     # Custom signup page
     path('accounts/signup/', custom_signup, name='signup'),
 
+    # Custom login page
+    path('accounts/login/', custom_login, name='login'),  # Updated to use custom login view
+
     # Signup confirmation page (after a successful signup)
     path('signup/confirmation/', signup_confirmation, name='signup_confirmation'),
 
@@ -46,9 +50,6 @@ urlpatterns = [
 
     # Logout view (logs out the user)
     path('logout/', LogoutView.as_view(), name='logout'),
-
-    # Login page (for signing in users)
-    path('accounts/login/', LoginView.as_view(template_name='accounts/login.html'), name='login'),
 
     # Logged out page (redirects after logging out)
     path('logged_out/', LoggedOutView.as_view(), name='logged_out'),
