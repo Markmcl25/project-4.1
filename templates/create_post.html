@@ -32,7 +32,7 @@
         <label for="id_content">Content</label>
         <textarea class="form-control" id="id_content" name="content">{{ form.content.value|default:'' }}</textarea>
     </div>
-
+    
     <!-- URL Field -->
     <div class="form-group">
         <label for="id_url">External URL</label>
@@ -81,7 +81,11 @@
                         </h6>
                         <p class="card-text">
                             {{ post.content|truncatewords:30 }}... 
-                            <a href="{% url 'post_detail' post.id %}">Read more</a>
+                            {% if post.url %}
+                                <a href="{{ post.url }}" target="_blank" class="btn btn-link">Read External Article</a>
+                            {% else %}
+                                <a href="{% url 'post_detail' post.id %}">Read more</a>
+                            {% endif %}
                         </p>
                     </div>
                 </div>
