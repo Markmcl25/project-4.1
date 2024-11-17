@@ -20,6 +20,17 @@ class PostForm(forms.ModelForm):
         })
     )
 
+    # Define the subtitle field with a custom widget and placeholder
+    subtitle = forms.CharField(
+        max_length=300,
+        required=False,  # Optional field
+        widget=forms.TextInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Enter a subtitle (optional)', 
+            'aria-label': 'Subtitle'
+        })
+    )
+    
     # Define the content field with a custom widget and placeholder
     content = forms.CharField(
         widget=forms.Textarea(attrs={
@@ -29,7 +40,17 @@ class PostForm(forms.ModelForm):
             'aria-label': 'Post Content'
         })
     )
+    
+    # Define the url field with a custom widget and placeholder
+    url = forms.URLField(
+        required=False,  # Optional field
+        widget=forms.URLInput(attrs={
+            'class': 'form-control', 
+            'placeholder': 'Enter external URL (optional)', 
+            'aria-label': 'External URL'
+        })
+    )
 
     class Meta:
         model = Post
-        fields = ['title', 'content', 'category']
+        fields = ['title', 'subtitle', 'content', 'url', 'category']

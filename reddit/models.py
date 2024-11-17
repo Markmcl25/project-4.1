@@ -20,6 +20,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reddit_posts")
     updated_on = models.DateTimeField(auto_now=True)
     content = models.TextField()
+    url = models.URLField(max_length=500, blank=True, null=True)  # New URL field
     # Add a default category (make sure to replace `1` with the appropriate category ID)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, default=1)
     featured_image = CloudinaryField('image', default='placeholder')
