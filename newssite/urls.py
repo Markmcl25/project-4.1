@@ -17,6 +17,9 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     # Admin page for managing the app
     path('admin/', admin.site.urls),
+    
+    # Summernote
+    path('summernote/', include('django_summernote.urls')),
 
     # Home page showing the post list (uses PostList view and home.html template)
     path('', PostList.as_view(template_name='home.html'), name='home'),
