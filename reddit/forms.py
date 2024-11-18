@@ -51,13 +51,16 @@ class PostForm(forms.ModelForm):
         })
     )
 
+    class Meta:
+        model = Post
+        fields = ['title', 'subtitle', 'content', 'category', 'url', 'featured_image']
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['name', 'email', 'body']
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your Name'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your Email'}),
-            'body': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Your Comment'}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your name'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your email'}),
+            'body': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Your comment'}),
         }
-

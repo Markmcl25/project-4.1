@@ -9,6 +9,7 @@ from reddit.views import (
     category_view,
     edit_post,
     CreatePostView,
+    add_comment,
     UserPostListView,  # Include this view for user-specific posts
 )
 from django.contrib.auth.views import LogoutView, LoginView
@@ -40,6 +41,9 @@ urlpatterns = [
 
     # Edit post page
     path('post/edit/<int:pk>/', edit_post, name='edit_post'),
+
+    # Add comment to post
+    path('post/<int:pk>/comment/', add_comment, name='add_comment'),
 
     # Custom signup page
     path('accounts/signup/', custom_signup, name='signup'),

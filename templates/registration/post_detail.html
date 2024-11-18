@@ -1,4 +1,76 @@
-<!-- post_detail.html -->
-<h1>{{ post.title }}</h1>
-<p>{{ post.content }}</p>
-<p>Created on: {{ post.created_on }}</p>
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ post.title }} - NewsSite
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Post Details -->
+    <div class="post-detail">
+        <h1>{{ post.title }}</h1>
+        <p class="text-muted">
+            By <strong>{{ post.author }}</strong> | 
+            Published on {{ post.created_on|date:"F j, Y" }}
+        </p>
+        {% if post.featured_image %}
+        <div class="post-image my-3">
+            <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="img-fluid">
+        </div>
+        {% endif %}
+        <div class="post-content">
+            <p>{{ post.content }}</p>
+        </div>
+        {% if post.url %}
+        <p>
+            <strong>External Link:</strong> 
+            <a href="{{ post.url }}" target="_blank" class="text-primary">
+                Read more on the original site
+            </a>
+        </p>
+        {% endif %}
+    </div>
+
+    <!-- Comments Section -->
+    <div class="comments mt-5">
+        <h2>Comments</h2>
+        {% for comment in comments %}
+        <div class="comment mb-4">
+            <p><strong>{{ comment.name }}</strong>:</p>
+            <p>{{ comment.body }}</p>
+            <p class="text-muted">
+                <small>Commented on {{ comment.created_on|date:"F j, Y" }}</small>
+            </p>
+        </div>
+        {% empty %}
+        <p>No comments yet. Be the first to comment!</p>
+        {% endfor %}
+    </div>
+
+    <!-- Add Comment Form -->
+    <div class="add-comment mt-5">
+        <h3>Leave a Comment</h3>
+        <form method="post" action="{% url 'add_comment' post.pk %}">
+            {% csrf_token %}
+            <div class="form-group mb-3">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.body.label_tag }}
+                {{ form.body }}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!-- Back Link -->
+    <div class="mt-4">
+        <a href="{% url 'post_list' %}" class="btn btn-secondary">Back to All Posts</a>
+    </div>
+</div>
+{% endblock %}
