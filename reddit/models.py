@@ -27,7 +27,8 @@ class Post(models.Model):
     excerpt = models.TextField(blank=True)
     created_on = models.DateTimeField(auto_now=True)
     status = models.IntegerField(choices=STATUS, default=0)
-    likes = models.ManyToManyField(User, related_name='blog_likes', blank=True)
+    likes = models.ManyToManyField(User, related_name='liked_posts', blank=True)
+    dislikes = models.ManyToManyField(User, related_name='disliked_posts', blank=True)
 
     class Meta:
         ordering = ['-created_on']
@@ -37,6 +38,9 @@ class Post(models.Model):
 
     def number_of_likes(self):
         return self.likes.count()
+
+    def number_of_dislikes(self):
+        return self.dislikes.count()
 
     def save(self, *args, **kwargs):
         if not self.slug:
