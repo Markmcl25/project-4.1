@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, Category, Comment  
+from .models import Post, Category, Comment
 
 class PostForm(forms.ModelForm):
     # Define the category field with a custom widget
@@ -41,7 +41,7 @@ class PostForm(forms.ModelForm):
         })
     )
     
-    # Define the url field with a custom widget and placeholder
+    # Define the URL field with a custom widget and placeholder
     url = forms.URLField(
         required=False,  # Optional field
         widget=forms.URLInput(attrs={
@@ -49,6 +49,12 @@ class PostForm(forms.ModelForm):
             'placeholder': 'Enter external URL (optional)', 
             'aria-label': 'External URL'
         })
+    )
+    
+    # Define the image field with a custom widget
+    featured_image = forms.ImageField(
+        required=False,  # Optional field
+        widget=forms.ClearableFileInput(attrs={'class': 'form-control'})
     )
 
     class Meta:
@@ -60,7 +66,16 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ['name', 'email', 'body']
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Your name'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Your email'}),
-            'body': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Your comment'}),
+            'name': forms.TextInput(attrs={
+                'class': 'form-control', 
+                'placeholder': 'Your name'
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control', 
+                'placeholder': 'Your email'
+            }),
+            'body': forms.Textarea(attrs={
+                'class': 'form-control', 
+                'placeholder': 'Your comment'
+            }),
         }
