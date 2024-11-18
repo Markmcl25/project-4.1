@@ -1,63 +1,62 @@
 from django.contrib import admin
 from django.urls import path, include
 from reddit.views import (
-    UserPostListView, 
     PostList,
     PostDetail,
     custom_signup,
-    custom_login,  # Added custom login view
     signup_confirmation,
     LoggedOutView,
     category_view,
     edit_post,
     CreatePostView,
+    UserPostListView,  # Include this view for user-specific posts
 )
-from django.contrib.auth.views import LogoutView
+from django.contrib.auth.views import LogoutView, LoginView
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     # Admin page for managing the app
     path('admin/', admin.site.urls),
-    
-    # Summernote
+
     path('summernote/', include('django_summernote.urls')),
 
-    # Home page showing the post list (uses PostList view and home.html template)
+    # Home page showing all posts
     path('', PostList.as_view(template_name='home.html'), name='home'),
 
-    # Create post view (form for creating posts)
+    # View for all posts by a user
+    path('user/posts/', UserPostListView.as_view(), name='user_posts'),
+
+    # Post list view (all public posts)
+    path('posts/', PostList.as_view(template_name='post_list.html'), name='posts'),
+
+    # Create post view
     path('create/', CreatePostView.as_view(), name='create_post'),
 
-    # Category view (displays posts under a specific category)
+    # Category view
     path('category/<slug:category_slug>/', category_view, name='category'),
 
-    # Post detail view (individual post details page)
+    # Post detail view
     path('post/<int:pk>/', PostDetail.as_view(), name='post_detail'),
-
-    # Posts list view (for listing all posts using the posts.html template)
-    path('posts/', PostList.as_view(template_name='posts.html'), name='posts'),
 
     # Edit post page
     path('post/edit/<int:pk>/', edit_post, name='edit_post'),
 
-    path('posts/', UserPostListView.as_view(), name='post_list'),
-
     # Custom signup page
     path('accounts/signup/', custom_signup, name='signup'),
 
-    # Custom login page
-    path('accounts/login/', custom_login, name='login'),  # Updated to use custom login view
-
-    # Signup confirmation page (after a successful signup)
+    # Signup confirmation page
     path('signup/confirmation/', signup_confirmation, name='signup_confirmation'),
 
     # Allauth URLs for authentication
     path('accounts/', include('allauth.urls')),
 
-    # Logout view (logs out the user)
+    # Logout view
     path('logout/', LogoutView.as_view(), name='logout'),
 
-    # Logged out page (redirects after logging out)
+    # Login page
+    path('accounts/login/', LoginView.as_view(template_name='accounts/login.html'), name='login'),
+
+    # Logged out page
     path('logged_out/', LoggedOutView.as_view(), name='logged_out'),
 
     # Password reset URLs

@@ -48,6 +48,19 @@ INSTALLED_APPS = [
     'reddit',
 ]
 
+# Summernote Configuration
+SUMMERNOTE_CONFIG = {
+    'iframe': True,  # Use iframe to prevent style conflicts
+    'attachment_require_authentication': True,  # Require authentication for uploading files
+    'disable_attachment': False,  # Enable or disable attachment functionality
+    'summernote': {
+        'width': '100%',  # Editor width
+        'height': '480px',  # Editor height
+    },
+}
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 SITE_ID = 1

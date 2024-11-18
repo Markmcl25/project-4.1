@@ -1,39 +1,44 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm  # Added AuthenticationForm for custom login
-from .forms import PostForm
-from django.views import generic
-from django.views.generic import DetailView, CreateView, TemplateView, ListView
-from .models import Post, Category
+from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.contrib.auth.decorators import login_required
-from allauth.account.forms import SignupForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth import login
-from django.urls import reverse_lazy  # Needed for success URL in class-based views
+from django.urls import reverse_lazy
+from .models import Post, Category
+from .forms import PostForm
 
-# Class-based view for listing posts
-class PostList(generic.ListView):
+# Class-based view for listing all posts (public view)
+class PostList(ListView):
     model = Post
-    queryset = Post.objects.filter(status=1).order_by("-created_on")
-    template_name = 'post_list.html'  
+    template_name = 'post_list.html'
     context_object_name = 'posts'
     paginate_by = 6
-    queryset = Post.objects.filter(status=1).order_by("-created_on")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # Add categories to the context
-        context['categories'] = Category.objects.all()
-        context['form'] = PostForm()  # Add the PostForm to the context to show the form on the same page
-        return context
+    def get_queryset(self):
+        return Post.objects.filter(status=1).order_by('-created_on')
+
+# Class-based view for listing posts by the logged-in user
+class UserPostListView(ListView):
+    model = Post
+    template_name = 'post_list.html'  # Template to render posts
+    context_object_name = 'posts'
+    paginate_by = 10
+
+    def get_queryset(self):
+        # Ensure the user is authenticated
+        if self.request.user.is_authenticated:
+            # Filter posts created by the logged-in user
+            return Post.objects.filter(author=self.request.user).order_by('-created_on')
+        else:
+            return Post.objects.none()  # Return empty queryset if user is not logged in
 
 # Class-based view for creating a new post
 class CreatePostView(CreateView):
     model = Post
     form_class = PostForm
     template_name = 'create_post.html'
-    
-    # Redirect to post list or homepage after a successful post creation
-    success_url = reverse_lazy('posts')  # Adjust as needed (e.g., 'home' or 'posts')
+    success_url = reverse_lazy('posts')  # Redirect to post list after a successful post creation
 
     def form_valid(self, form):
         form.instance.author = self.request.user  # Set the logged-in user as the author
