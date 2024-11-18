@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from reddit.views import (
+    UserPostListView, 
     PostList,
     PostDetail,
     custom_signup,
@@ -38,6 +39,8 @@ urlpatterns = [
 
     # Edit post page
     path('post/edit/<int:pk>/', edit_post, name='edit_post'),
+
+    path('posts/', UserPostListView.as_view(), name='post_list'),
 
     # Custom signup page
     path('accounts/signup/', custom_signup, name='signup'),
