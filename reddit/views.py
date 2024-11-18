@@ -52,10 +52,24 @@ class CreatePostView(CreateView):
         return self.render_to_response(context)
 
 # Class-based view for viewing a single post
-class PostDetail(DetailView):
-    model = Post
-    template_name = 'post_detail.html'
-    context_object_name = 'post'
+def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['comments'] = self.object.comments.filter(approved=True)  # Approved comments
+        context['form'] = CommentForm()
+        return context
+
+def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = self.object
+            comment.save()
+            messages.success(request, "Your comment has been added!")
+            return redirect('post_detail', pk=self.object.pk)
+        else:
+            context = self.get_context_data(form=form)
+            return self.render_to_response(context)
 
 # Class-based view for logged-out users
 class LoggedOutView(TemplateView):
