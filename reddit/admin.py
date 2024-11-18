@@ -8,11 +8,26 @@ from django_summernote.admin import SummernoteModelAdmin
 # Register Post model with Summernote and additional configurations
 @admin.register(Post)
 class PostAdmin(SummernoteModelAdmin):
+    list_display = ('title', 'author', 'status', 'created_on')
+    list_filter = ('status', 'created_on', 'author')
     prepopulated_fields = {'slug': ('title',)}
     list_filter = ('status', 'created_on')
     search_fields = ('title', 'content', 'slug')  # Add search functionality
     ordering = ('-created_on',)  # Orders by created_on in descending order
+    actions = ['approve_posts', 'reject_posts']
+
     summernote_fields = ('content',)  # This will enable Summernote on 'content' field
+
+    def approve_posts(self, request, queryset):
+        queryset.update(status=1)  # Set status to 'Published'
+        self.message_user(request, "Selected posts have been approved.")
+
+    def reject_posts(self, request, queryset):
+        queryset.update(status=0)  # Set status to 'Draft'
+        self.message_user(request, "Selected posts have been rejected.")
+
+    approve_posts.short_description = "Approve selected posts"
+    reject_posts.short_description = "Reject selected posts"
 
 # Register Comment model with additional configurations
 @admin.register(Comment)
