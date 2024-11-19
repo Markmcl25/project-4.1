@@ -9,6 +9,17 @@ class PostForm(forms.ModelForm):
         required=True,
         widget=forms.Select(attrs={'class': 'form-select', 'aria-label': 'Category'})
     )
+
+    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter title'}))
+    content = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter content'}))
+    featured_image = forms.ImageField(
+        required=False,  # Allow the field to be optional
+        widget=forms.ClearableFileInput(attrs={'class': 'form-control'})
+    )
+
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'category', 'featured_image']
     
     # Define the title field with a custom widget and placeholder
     title = forms.CharField(

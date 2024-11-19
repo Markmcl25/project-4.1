@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from reddit.views import (
@@ -10,62 +12,64 @@ from reddit.views import (
     edit_post,
     CreatePostView,
     add_comment,
-    UserPostListView,  # Include this view for user-specific posts
+    UserPostListView,
 )
 from django.contrib.auth.views import LogoutView, LoginView
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    # Admin page for managing the app
+    # Admin panel
     path('admin/', admin.site.urls),
 
+    # Summernote rich text editor
     path('summernote/', include('django_summernote.urls')),
 
-    # Home page showing all posts
+    # Home page (all posts)
     path('', PostList.as_view(template_name='home.html'), name='home'),
 
-    # View for all posts by a user
+    # User-specific posts
     path('user/posts/', UserPostListView.as_view(), name='user_posts'),
 
-    # Post list view (all public posts)
+    # Public post list
     path('posts/', PostList.as_view(template_name='post_list.html'), name='posts'),
 
-    # Create post view
+    # Create post
     path('create/', CreatePostView.as_view(), name='create_post'),
 
     # Category view
     path('category/<slug:category_slug>/', category_view, name='category'),
 
-    # Post detail view
+    # Single post detail
     path('post/<int:pk>/', PostDetail.as_view(), name='post_detail'),
 
-    # Edit post page
+    # Edit post
     path('post/edit/<int:pk>/', edit_post, name='edit_post'),
 
     # Add comment to post
     path('post/<int:pk>/comment/', add_comment, name='add_comment'),
 
-    # Custom signup page
+    # Custom signup
     path('accounts/signup/', custom_signup, name='signup'),
 
-    # Signup confirmation page
+    # Signup confirmation
     path('signup/confirmation/', signup_confirmation, name='signup_confirmation'),
 
-    # Allauth URLs for authentication
+    # Authentication (Allauth)
     path('accounts/', include('allauth.urls')),
 
-    # Logout view
+    # Logout
     path('logout/', LogoutView.as_view(), name='logout'),
 
-    # Login page
+    # Login
     path('accounts/login/', LoginView.as_view(template_name='accounts/login.html'), name='login'),
 
     # Logged out page
     path('logged_out/', LoggedOutView.as_view(), name='logged_out'),
 
-    # Password reset URLs
+    # Password reset
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
     path('password_reset_done/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset_done/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
-]
+    ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
