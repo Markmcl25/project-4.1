@@ -31,6 +31,25 @@
         {% endif %}
     </div>
 
+    <!-- Voting Section -->
+    <div class="voting my-4">
+        <form method="post" action="{% url 'upvote_post' post.pk %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">
+                Upvote ({{ post.upvotes.count }})
+            </button>
+        </form>
+        <form method="post" action="{% url 'downvote_post' post.pk %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">
+                Downvote ({{ post.downvotes.count }})
+            </button>
+        </form>
+        <p class="mt-2">
+            <strong>Total Votes:</strong> {{ post.total_votes }}
+        </p>
+    </div>
+
     <!-- Comments Section -->
     <div class="comments mt-5">
         <h2>Comments</h2>

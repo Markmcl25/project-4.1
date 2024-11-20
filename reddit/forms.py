@@ -87,6 +87,8 @@ class CommentForm(forms.ModelForm):
             }),
             'body': forms.Textarea(attrs={
                 'class': 'form-control', 
-                'placeholder': 'Your comment'
+                'placeholder': 'Your comment',
+                'rows': 4,  # Adjust rows to reduce initial height
+                'style': 'max-height: 150px; overflow-y: auto;',
             }),
         }
