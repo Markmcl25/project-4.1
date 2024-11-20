@@ -12,6 +12,8 @@ from reddit.views import (
     edit_post,
     CreatePostView,
     add_comment,
+    upvote_post, 
+    downvote_post,
     UserPostListView,
 )
 from django.contrib.auth.views import LogoutView, LoginView
@@ -47,6 +49,10 @@ urlpatterns = [
 
     # Add comment to post
     path('post/<int:pk>/comment/', add_comment, name='add_comment'),
+
+    # 
+    path('post/<int:pk>/upvote/', upvote_post, name='upvote_post'),
+    path('post/<int:pk>/downvote/', downvote_post, name='downvote_post'),
 
     # Custom signup
     path('accounts/signup/', custom_signup, name='signup'),
