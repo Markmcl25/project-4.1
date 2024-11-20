@@ -12,37 +12,29 @@
             {% if post.featured_image %}
             <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="img-thumbnail me-3" style="width: 100px; height: auto;">
             {% else %}
-            <img src="https://via.placeholder.com/100" alt="Placeholder" class="img-thumbnail me-3" style="width: 100px; height: auto;">
+            <img src="https://via.placeholder.com/100" alt="No Image Available" class="img-thumbnail me-3" style="width: 100px; height: auto;">
             {% endif %}
 
             <!-- Post details -->
             <div>
                 <h5 class="mb-1">
-                    <a href="{% url 'post_detail' post.id %}" class="text-decoration-none">{{ post.title }}</a>
+                    <a href="{% url 'post_detail' post.pk %}" class="text-decoration-none">{{ post.title }}</a>
                 </h5>
                 <p class="mb-1">{{ post.content|truncatewords:20 }}</p>
+
+                <!-- Display the URL field if it exists -->
+                {% if post.url %}
+                <p>
+                    <strong>Source:</strong> 
+                    <a href="{{ post.url }}" target="_blank" class="text-primary">Visit External Link</a>
+                </p>
+                {% endif %}
+
                 <small class="text-muted">Created on {{ post.created_on|date:"F j, Y" }}</small>
             </div>
         </li>
         {% endfor %}
     </ul>
-
-    <!-- Pagination -->
-    {% if posts.paginator %}
-    <nav>
-        <ul class="pagination justify-content-center mt-4">
-            {% if posts.has_previous %}
-            <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
-            <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number }}">Previous</a></li>
-            {% endif %}
-            <li class="page-item disabled"><span class="page-link">Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span></li>
-            {% if posts.has_next %}
-            <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number }}">Next</a></li>
-            <li class="page-item"><a class="page-link" href="?page={{ posts.paginator.num_pages }}">Last</a></li>
-            {% endif %}
-        </ul>
-    </nav>
-    {% endif %}
     {% else %}
     <p>No posts available.</p>
     {% endif %}

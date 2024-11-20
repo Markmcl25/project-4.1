@@ -43,7 +43,9 @@
     <form method="post" action="" class="mt-4">
         {% csrf_token %}
         {{ comment_form.as_p }}
-        <button type="submit" class="btn btn-primary">Add Comment</button>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#commentForm" aria-expanded="false" aria-controls="commentForm">
+            Add Comment
+        </button>
     </form>
 
     <!-- Sharing Options -->

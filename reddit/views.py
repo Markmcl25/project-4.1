@@ -35,11 +35,12 @@ class CreatePostView(CreateView):
     model = Post
     form_class = PostForm
     template_name = 'create_post.html'
-    success_url = reverse_lazy('post_list')
+    success_url = reverse_lazy('posts')
 
     def form_valid(self, form):
         form.instance.author = self.request.user  # Set the logged-in user as the author
-        post = form.save()
+        form.instance.status = 1  # Mark the post as published
+        form.save()
         messages.success(self.request, 'Post created successfully!')
         return redirect(self.success_url)
 
