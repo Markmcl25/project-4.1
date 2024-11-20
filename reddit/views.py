@@ -125,3 +125,23 @@ def category_view(request, category_slug):
 # Signup confirmation page
 def signup_confirmation(request):
     return render(request, 'signup_confirmation.html')
+
+@login_required
+def upvote_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.user in post.upvotes.all():
+        post.upvotes.remove(request.user)  # Remove upvote if it already exists
+    else:
+        post.upvotes.add(request.user)  # Add upvote
+        post.downvotes.remove(request.user)  # Ensure user can't upvote and downvote simultaneously
+    return JsonResponse({'upvotes': post.upvotes.count(), 'downvotes': post.downvotes.count(), 'total': post.total_votes()})
+
+@login_required
+def downvote_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.user in post.downvotes.all():
+        post.downvotes.remove(request.user)  # Remove downvote if it already exists
+    else:
+        post.downvotes.add(request.user)  # Add downvote
+        post.upvotes.remove(request.user)  # Ensure user can't upvote and downvote simultaneously
+    return JsonResponse({'upvotes': post.upvotes.count(), 'downvotes': post.downvotes.count(), 'total': post.total_votes()})    
