@@ -1,37 +1,95 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ post.title }}{% endblock %}
+{% block title %}
+    {{ post.title }} - NewsSite
+{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
-    <h1>{{ post.title }}</h1>
-    <p class="text-muted">Posted on {{ post.created_on|date:"F j, Y" }}</p>
-
-    <!-- Display post image -->
-    {% if post.featured_image %}
-    <img src="{{ post.featured_image.url }}" class="img-fluid mb-4" alt="{{ post.title }}">
-    {% endif %}
-
-    <!-- Post content -->
-    <div class="content">
-        {{ post.content|safe }}
+    <!-- Post Details -->
+    <div class="post-detail">
+        <h1>{{ post.title }}</h1>
+        <p class="text-muted">
+            By <strong>{{ post.author }}</strong> | 
+            Published on {{ post.created_on|date:"F j, Y" }}
+        </p>
+        {% if post.featured_image %}
+        <div class="post-image my-3">
+            <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="img-fluid">
+        </div>
+        {% endif %}
+        <div class="post-content">
+            <p>{{ post.content }}</p>
+        </div>
+        {% if post.url %}
+        <p>
+            <strong>External Link:</strong> 
+            <a href="{{ post.url }}" target="_blank" class="text-primary">
+                Read more on the original site
+            </a>
+        </p>
+        {% endif %}
     </div>
 
-    <!-- Display the URL field if it exists -->
-    {% if post.url %}
-    <p>
-        <strong>Source:</strong> 
-        <a href="{{ post.url }}" target="_blank" class="text-primary">Visit External Link</a>
-    </p>
-    {% endif %}
+    <!-- Voting Section -->
+    <div class="voting my-4">
+        <form method="post" action="{% url 'upvote_post' post.pk %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success">
+                Upvote ({{ post.upvotes.count }})
+            </button>
+        </form>
+        <form method="post" action="{% url 'downvote_post' post.pk %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">
+                Downvote ({{ post.downvotes.count }})
+            </button>
+        </form>
+        <p class="mt-2">
+            <strong>Total Votes:</strong> {{ post.total_votes }}
+        </p>
+    </div>
 
-    <!-- Add comment section -->
-    <hr>
-    <h3>Add a Comment</h3>
-    <form method="post" action="{% url 'add_comment' post.pk %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Add Comment</button>
-    </form>
+    <!-- Comments Section -->
+    <div id="comments" class="comments mt-5">
+        <h2>Comments</h2>
+        {% for comment in comments %}
+        <div class="comment mb-4">
+            <p><strong>{{ comment.name }}</strong>:</p>
+            <p>{{ comment.body }}</p>
+            <p class="text-muted">
+                <small>Commented on {{ comment.created_on|date:"F j, Y" }}</small>
+            </p>
+        </div>
+        {% empty %}
+        <p>No comments yet. Be the first to comment!</p>
+        {% endfor %}
+    </div>
+
+    <!-- Add Comment Form -->
+    <div class="add-comment mt-5">
+        <h3>Leave a Comment</h3>
+        <form method="post" action="{% url 'add_comment' post.pk %}">
+            {% csrf_token %}
+            <div class="form-group mb-3">
+                {{ form.name.label_tag }}
+                {{ form.name }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.email.label_tag }}
+                {{ form.email }}
+            </div>
+            <div class="form-group mb-3">
+                {{ form.body.label_tag }}
+                {{ form.body }}
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!-- Back Link -->
+    <div class="mt-4">
+        <a href="{% url 'posts' %}" class="btn btn-secondary">Back to All Posts</a>
+    </div>
 </div>
 {% endblock %}

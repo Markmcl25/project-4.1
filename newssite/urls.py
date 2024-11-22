@@ -50,7 +50,7 @@ urlpatterns = [
     # Add comment to post
     path('post/<int:pk>/comment/', add_comment, name='add_comment'),
 
-    # 
+    # Voting system
     path('post/<int:pk>/upvote/', upvote_post, name='upvote_post'),
     path('post/<int:pk>/downvote/', downvote_post, name='downvote_post'),
 
