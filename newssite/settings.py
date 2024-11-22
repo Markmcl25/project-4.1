@@ -4,6 +4,9 @@ import dj_database_url
 
 if os.path.isfile('env.py'):
      import env
+if DEBUG:
+    CSRF_TRUSTED_ORIGINS += ['http://127.0.0.1', 'http://localhost']
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -16,9 +19,9 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['newssite.herokuapp.com', 'localhost', 'reddit-new-2d2861630b68.herokuapp.com', '8000-markmcl25-project41-o0vfyfnhrqc.ws-eu116.gitpod.io']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost').split(',')
+   
+ALLOWED_HOSTS = ['newssite.herokuapp.com', 'localhost', 'reddit-new-2d2861630b68.herokuapp.com', '8000-markmcl25-project41-o0vfyfnhrqc.ws-eu116.gitpod.io', '127.0.0.1']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-markmcl25-project41-o0vfyfnhrqc.ws-eu116.gitpod.io',

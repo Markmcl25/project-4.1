@@ -1,39 +1,59 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Handle upvote button
-    document.getElementById('upvote-button').addEventListener('click', function(e) {
-        e.preventDefault();
-        const url = this.getAttribute('data-url');
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('total-votes').innerText = data.total;
-            document.getElementById('upvote-count').innerText = data.upvotes;
-            document.getElementById('downvote-count').innerText = data.downvotes;
+document.addEventListener("DOMContentLoaded", function () {
+    const upvoteButtons = document.querySelectorAll(".btn-upvote");
+    const downvoteButtons = document.querySelectorAll(".btn-downvote");
+
+    console.log("Upvote buttons:", upvoteButtons);
+    console.log("Downvote buttons:", downvoteButtons);
+
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    upvoteButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const postId = this.dataset.postId;
+            console.log(`Upvote button clicked for Post ID: ${postId}`);
+
+            fetch(`/post/${postId}/upvote/`, {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrfToken,
+                    "Content-Type": "application/json",
+                },
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error("Failed to upvote.");
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Upvote successful:", data);
+                    const totalVotesElement = document.querySelector(`#total-votes-${postId}`);
+                    if (totalVotesElement) totalVotesElement.textContent = `Total Votes: ${data.total}`;
+                })
+                .catch(error => console.error("Error during upvote:", error));
         });
     });
 
-    // Handle downvote button
-    document.getElementById('downvote-button').addEventListener('click', function(e) {
-        e.preventDefault();
-        const url = this.getAttribute('data-url');
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-                'Content-Type': 'application/json',
-            },
-        })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('total-votes').innerText = data.total;
-            document.getElementById('upvote-count').innerText = data.upvotes;
-            document.getElementById('downvote-count').innerText = data.downvotes;
+    downvoteButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            const postId = this.dataset.postId;
+            console.log(`Downvote button clicked for Post ID: ${postId}`);
+
+            fetch(`/post/${postId}/downvote/`, {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrfToken,
+                    "Content-Type": "application/json",
+                },
+            })
+                .then(response => {
+                    if (!response.ok) throw new Error("Failed to downvote.");
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Downvote successful:", data);
+                    const totalVotesElement = document.querySelector(`#total-votes-${postId}`);
+                    if (totalVotesElement) totalVotesElement.textContent = `Total Votes: ${data.total}`;
+                })
+                .catch(error => console.error("Error during downvote:", error));
         });
     });
 });
