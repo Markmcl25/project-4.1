@@ -5,7 +5,14 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Upvote buttons:", upvoteButtons);
     console.log("Downvote buttons:", downvoteButtons);
 
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    // Retrieve CSRF token from meta tag or hidden input field
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || 
+                      document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+
+    if (!csrfToken) {
+        console.error("CSRF token not found!");
+        return;
+    }
 
     upvoteButtons.forEach(button => {
         button.addEventListener("click", function () {
@@ -20,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
             })
                 .then(response => {
+                    console.log("Fetch response for upvote:", response);
                     if (!response.ok) throw new Error("Failed to upvote.");
                     return response.json();
                 })
@@ -45,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
             })
                 .then(response => {
+                    console.log("Fetch response for downvote:", response);
                     if (!response.ok) throw new Error("Failed to downvote.");
                     return response.json();
                 })
