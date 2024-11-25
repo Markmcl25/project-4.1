@@ -18,7 +18,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['newssite.herokuapp.com', 'localhost', 'reddit-new-2d2861630b68.herokuapp.com', '8000-markmcl25-project41-o0vfyfnhrqc.ws-eu116.gitpod.io']
+ALLOWED_HOSTS = ['newssite.herokuapp.com', 'localhost', 'reddit-new-2d2861630b68.herokuapp.com', '127.0.0.1', '8000-markmcl25-project41-o0vfyfnhrqc.ws-eu116.gitpod.io']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-markmcl25-project41-o0vfyfnhrqc.ws-eu116.gitpod.io',
@@ -109,7 +109,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'newssite.wsgi.application'
 
-
 # Database
 DATABASES = {
     'default': dj_database_url.config(default=os.environ.get("DATABASE_URL"))
@@ -152,3 +151,32 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Logging Configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',  # Set to DEBUG to capture detailed logs
+        },
+        'reddit': {  # Replace with your app name
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}

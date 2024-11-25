@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="csrf-token" content="{{ csrf_token }}">
+    <meta name="csrf-token" content="{{ csrf_token }}"> <!-- CSRF token for JavaScript -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}NewsSite{% endblock %}</title>
     <!-- Bootstrap CSS -->
@@ -57,9 +57,20 @@
         <p>&copy; 2024 NewsSite. All rights reserved.</p>
     </footer>
 
+    <!-- Debugging Elements (Remove in Production) -->
+    <input type="hidden" id="csrf-debug" value="{{ csrf_token }}"> <!-- For testing CSRF in console -->
+
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Voting JavaScript -->
+    <script src="{% static 'js/voting.js' %}"></script> <!-- Include your JavaScript file -->
+    <script>
+        // Debug CSRF Token in Console
+        console.log("CSRF Token from meta tag:", document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
+        console.log("CSRF Token from hidden input:", document.getElementById('csrf-debug').value);
+    </script>
 </body>
 </html>
