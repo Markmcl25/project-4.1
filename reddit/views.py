@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth import login
 from django.urls import reverse_lazy
 from .models import Post, Category, Comment
-from .forms import PostForm, CommentForm  # Import CommentForm
+from .forms import PostForm, CommentForm, SignupForm  # Import CommentForm
 
 # Class-based view for listing all posts (public view)
 class PostList(ListView):

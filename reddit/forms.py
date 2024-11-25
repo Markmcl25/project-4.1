@@ -1,5 +1,14 @@
 from django import forms
 from .models import Post, Category, Comment
+from django.contrib.auth.models import User
+
+class SignupForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password']
+        widgets = {
+            'password': forms.PasswordInput(),
+        }
 
 class PostForm(forms.ModelForm):
     # Define the category field with a custom widget
