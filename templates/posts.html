@@ -7,14 +7,7 @@
     {% if posts %}
     <ul class="list-group">
         {% for post in posts %}
-        <li class="list-group-item d-flex align-items-start">
-            <!-- Display post image -->
-            {% if post.featured_image %}
-            <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="img-thumbnail me-3" style="width: 100px; height: auto;">
-            {% else %}
-            <img src="https://via.placeholder.com/100" alt="Placeholder" class="img-thumbnail me-3" style="width: 100px; height: auto;">
-            {% endif %}
-
+        <li class="list-group-item">
             <!-- Post details -->
             <div>
                 <h5 class="mb-1">

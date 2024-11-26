@@ -13,11 +13,6 @@
             By <strong>{{ post.author }}</strong> | 
             Published on {{ post.created_on|date:"F j, Y" }}
         </p>
-        {% if post.featured_image %}
-        <div class="post-image my-3">
-            <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="img-fluid">
-        </div>
-        {% endif %}
         <div class="post-content">
             <p>{{ post.content }}</p>
         </div>

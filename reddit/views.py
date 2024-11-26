@@ -80,6 +80,7 @@ def add_comment(request, pk):
         else:
             messages.error(request, 'Please correct the errors in the form.')
     return redirect('post_detail', pk=post.pk)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', f'/post/{pk}/'))
 
 # Class-based view for logged-out users
 class LoggedOutView(TemplateView):
