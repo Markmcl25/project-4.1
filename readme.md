@@ -194,5 +194,4 @@ The application is fully responsive using Bootstrap.
 
 The application is deployed on Heroku and accessible at:
 
-https://reddit-new.herokuapp.com
-
+https://reddit-new-2d2861630b68.herokuapp.com/
