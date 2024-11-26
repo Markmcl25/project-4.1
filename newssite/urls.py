@@ -2,10 +2,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.http import HttpResponse
 from reddit.views import (
     PostList,
     PostDetail,
     custom_signup,
+    custom_login,
     signup_confirmation,
     LoggedOutView,
     category_view,
@@ -18,6 +20,10 @@ from reddit.views import (
 )
 from django.contrib.auth.views import LogoutView, LoginView
 from django.contrib.auth import views as auth_views
+
+# Debugging view for login
+def debug_view(request):
+    return HttpResponse("Debugging Login Page")
 
 urlpatterns = [
     # Admin panel
@@ -60,11 +66,16 @@ urlpatterns = [
     # Signup confirmation
     path('signup/confirmation/', signup_confirmation, name='signup_confirmation'),
 
+    # Debugging login endpoint
+    path('accounts/login/debug/', debug_view, name='debug_login'),
+
     # Authentication (Allauth)
     path('accounts/', include('allauth.urls')),
 
     # Logout
     path('logout/', LogoutView.as_view(), name='logout'),
+
+    path('accounts/login/', custom_login, name='login'),
 
     # Login
     path('accounts/login/', LoginView.as_view(template_name='accounts/login.html'), name='login'),

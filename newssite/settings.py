@@ -72,7 +72,7 @@ AUTHENTICATION_BACKENDS = [
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/logged_out/'
-LOGIN_URL = '/accounts/login/'  # URL to redirect to when login is required
+LOGIN_URL = 'accounts/login/'  # URL to redirect to when login is required
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'

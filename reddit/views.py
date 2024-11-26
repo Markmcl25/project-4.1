@@ -95,11 +95,12 @@ def custom_login(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
-            login(request, form.get_user())
-            messages.success(request, "You have successfully logged in!")
-            return redirect('home')
+            user = form.get_user()
+            login(request, user)
+            messages.success(request, 'You have successfully logged in!')
+            return redirect('home')  # Replace 'home' with your desired redirect URL
         else:
-            messages.error(request, "Invalid username or password. Please try again.")
+            messages.error(request, 'Invalid username or password.')
     else:
         form = AuthenticationForm()
     return render(request, 'accounts/login.html', {'form': form})

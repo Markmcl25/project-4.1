@@ -34,18 +34,18 @@
                         <!-- Username field -->
                         <div class="form-group mb-3">
                             <label for="id_username">Username</label>
-                            {{ form.username }}
+                            {{ form.username.as_widget(attrs={"class": "form-control", "placeholder": "Enter your username"}) }}
                         </div>
 
                         <!-- Password field -->
                         <div class="form-group mb-3">
                             <label for="id_password">Password</label>
-                            {{ form.password }}
+                            {{ form.password.as_widget(attrs={"class": "form-control", "placeholder": "Enter your password"}) }}
                         </div>
 
                         <!-- Remember Me checkbox -->
                         <div class="form-check mb-3">
-                            {{ form.remember }}
+                            {{ form.remember.as_widget(attrs={"class": "form-check-input"}) }}
                             <label class="form-check-label" for="id_remember">Remember Me</label>
                         </div>
 
