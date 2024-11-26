@@ -1,26 +1,28 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% block title %}{{ category.name }} - Posts{% endblock %}
+{% block title %}Posts in {{ category.name }}{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
-    <h1 class="mb-4">{{ category.name }}</h1>
-    <p>Explore posts under the "{{ category.name }}" category.</p>
-
-    <div class="row">
-        {% for post in posts %}
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ post.title }}</h5>
-                        <p class="card-text">{{ post.content|truncatewords:20 }}</p>
-                        <a href="{% url 'post_detail' post.id %}" class="btn btn-primary">Read More</a>
+    <h1 class="mb-4">Posts in "{{ category.name }}"</h1>
+    <p>Explore posts related to "{{ category.name }}".</p>
+    
+    {% if posts %}
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text">{{ post.content|truncatewords:20 }}</p>
+                            <a href="{% url 'post_detail' post.pk %}" class="btn btn-primary">Read More</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% empty %}
-            <p>No posts found in this category.</p>
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No posts are available in this category yet. Check back later!</p>
+    {% endif %}
 </div>
 {% endblock %}

@@ -19,6 +19,11 @@ class PostList(ListView):
     def get_queryset(self):
         return Post.objects.filter(status=1).order_by('-created_on')
 
+def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()  # Pass categories to the template
+        return context        
+
 # Class-based view for listing posts by the logged-in user
 class UserPostListView(ListView):
     model = Post
@@ -56,6 +61,11 @@ class PostDetail(DetailView):
         context['comments'] = self.object.comments.filter(approved=True)  # Approved comments only
         context['form'] = CommentForm()  # Provide the comment form
         return context
+
+class CategoriesListView(ListView):
+    model = Category
+    template_name = 'category.html'
+    context_object_name = 'categories'
 
 # Handle comment submission for a post
 def add_comment(request, pk):
@@ -122,7 +132,8 @@ def edit_post(request, pk):
 def category_view(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     posts = Post.objects.filter(category=category, status=1)
-    return render(request, 'category.html', {'category': category, 'posts': posts})
+    categories = Category.objects.all()
+    return render(request, 'category.html', {'category': category, 'posts': posts, 'categories': categories})
 
 # Signup confirmation page
 def signup_confirmation(request):
