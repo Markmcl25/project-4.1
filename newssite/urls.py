@@ -12,7 +12,7 @@ from reddit.views import (
     edit_post,
     CreatePostView,
     add_comment,
-    upvote_post, 
+    upvote_post,
     downvote_post,
     UserPostListView,
 )
