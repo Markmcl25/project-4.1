@@ -176,3 +176,23 @@ Users can leave comments on individual posts.
 
 ## **Admin Features**
 
+### 1. Manage Posts and Categories
+The admin can add, edit, or delete posts and categories.
+
+### 2. User Management
+Admin can manage user accounts and review submitted posts.
+
+## **Front-End Design**
+
+### 1. Categories Navigation
+Categories are accessible via the navbar, leading to a page that lists all posts within the selected category.
+
+### 2. Responsive Design
+The application is fully responsive using Bootstrap.
+
+## **Deployed Application**
+
+The application is deployed on Heroku and accessible at:
+
+https://reddit-new.herokuapp.com
+
