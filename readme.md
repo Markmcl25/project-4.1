@@ -58,7 +58,52 @@ NewsSite is a full-stack web application that offers a seamless way for users to
 
 Follow the steps below to set up the project locally:
 
-### **1. Clone the Repository**
+### 1. Clone the Repository
+
 ```bash
-git clone https://github.com/your-username/your-repository.git
-cd your-repository
+git clone https://github.com/Markmcl25/project-4.1.git
+cd project-4.1
+```
+
+### 2. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Set Up the Database
+
+Use Postgres as the database. You can set up a local Postgres instance or use a managed Postgres database service.
+
+- Update the DATABASE_URL in your .env file with your database credentials:
+
+```bash
+DATABASE_URL=postgres://<username>:<password>@<host>:<port>/<dbname>
+```
+
+- Run migrations to set up the database schema:
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+### 4. Set Up Cloudinary
+
+This project uses Cloudinary for media storage. Create a Cloudinary account and get your API keys.
+
+- Add the following to your .env file:
+
+```bash
+CLOUDINARY_URL=cloudinary://<api_key>:<api_secret>@<cloud_name>
+```
+
+### 5. Set Up Heroku
+
+This project is configured to deploy on Heroku.
+
+- Log in to Heroku:
+
+```bash
+heroku login
+```
