@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Explore Categories{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Explore Categories</h1>
+    <p class="text-center text-muted mb-5">
+        Dive into topics that interest you. Select a category to explore related posts.
+    </p>
+
+    <div class="row">
+        {% for category in categories %}
+        <div class="col-md-4 col-sm-6 mb-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-primary">{{ category.name }}</h5>
+                    <p class="card-text text-muted">
+                        Find articles and discussions related to {{ category.name }}.
+                    </p>
+                    <a href="{% url 'category_list' category.slug %}" class="btn btn-outline-primary btn-sm">
+                        Explore {{ category.name }}
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if not categories %}
+    <div class="text-center">
+        <p class="text-muted">No categories available at the moment. Check back later!</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
