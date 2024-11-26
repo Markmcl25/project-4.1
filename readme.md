@@ -36,6 +36,12 @@ NewsSite is a full-stack web application that offers a seamless way for users to
 - **Post Creation:** Users can add new posts with a title, content, optional external links, and an image.
 - **Responsive Design:** Optimized for mobile and desktop devices.
 
+![Flow Chart](images/newssite_1.jpg)
+![Flow Chart](images/newssite_2.jpg)
+![Flow Chart](images/newssite_3.jpg)
+![Flow Chart](images/newssite_4.jpg)
+![Flow Chart](images/newssite_5.jpg)
+
 ---
 
 ## **Technologies Used**
@@ -107,3 +113,66 @@ This project is configured to deploy on Heroku.
 ```bash
 heroku login
 ```
+
+- Add Heroku as a remote:
+
+```bash
+git remote add heroku https://git.heroku.com/reddit-new.git
+```
+
+- Deploy your project:
+
+```bash
+git push heroku main
+```
+
+- Set the necessary environment variables in Heroku:
+
+```bash
+heroku config:set SECRET_KEY=<your_django_secret_key>
+heroku config:set CLOUDINARY_URL=cloudinary://<api_key>:<api_secret>@<cloud_name>
+heroku config:set DATABASE_URL=<your_database_url>
+```
+
+- Run migrations on Heroku:
+
+```bash
+heroku run python manage.py migrate
+```
+
+### 6. Run the Development Server
+
+- To test locally, run:
+
+```bash
+python manage.py runserver
+```
+
+---
+
+## **Layout Flowchart**
+
+Below is a visual representation of the project's flow and layout:
+
+![Flow Chart](images/flow_chart.jpg)
+
+---
+
+## **Features in Detail**
+
+User Features
+
+### 1. Register and Login
+Users can register with a username, email, password, and avatar. Authentication is managed via Django Allauth.
+
+### 2. Create and Browse Posts
+Authenticated users can create posts with a title, content, and optional external URL. Posts can be categorized.
+
+### 3. Upvote and Downvote
+Registered users can upvote or downvote posts to prioritize content.
+
+### 4. Comment on Posts
+Users can leave comments on individual posts.
+
+## **Admin Features**
+
