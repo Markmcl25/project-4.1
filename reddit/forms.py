@@ -1,14 +1,26 @@
+from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import Post, Category, Comment
+from .models import Post, Category, Comment, UserProfile
 from django.contrib.auth.models import User
 
+
 class SignupForm(forms.ModelForm):
+    avatar = forms.ImageField(
+        required=False,  # Make it optional
+        widget=forms.ClearableFileInput(attrs={'class': 'form-control'})
+    )
+
     class Meta:
         model = User
         fields = ['username', 'email', 'password']
-        widgets = {
-            'password': forms.PasswordInput(),
-        }
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+            # Save the UserProfile with the avatar
+            UserProfile.objects.create(user=user, avatar=self.cleaned_data.get('avatar'))
+        return user
 
 class PostForm(forms.ModelForm):
     # Define the category field with a custom widget

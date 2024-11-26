@@ -7,6 +7,13 @@ import uuid
 # Status options for the post status field
 STATUS = ((0, "Draft"), (1, "Published"))
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    avatar = models.ImageField(upload_to="avatars/", default="avatars/default.jpg")
+
+    def __str__(self):
+        return self.user.username
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
