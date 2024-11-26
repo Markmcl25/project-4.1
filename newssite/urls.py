@@ -3,6 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.http import HttpResponse
+from reddit import views
 from reddit.views import (
     PostList,
     PostDetail,
@@ -10,7 +11,7 @@ from reddit.views import (
     custom_login,
     signup_confirmation,
     LoggedOutView,
-    category_view,
+    category_list,
     edit_post,
     CreatePostView,
     add_comment,
@@ -45,7 +46,8 @@ urlpatterns = [
     path('create/', CreatePostView.as_view(), name='create_post'),
 
     # Category view
-    path('category/<slug:category_slug>/', category_view, name='category'),
+    path('categories/', views.category_list, name='categories'),
+    path('categories/<slug:category_slug>/', views.category_list, name='category_list'),
 
     # Single post detail
     path('post/<int:pk>/', PostDetail.as_view(), name='post_detail'),
