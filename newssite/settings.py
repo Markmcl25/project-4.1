@@ -26,6 +26,7 @@ ROOT_URLCONF = 'newssite.urls'
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8000',
     'https://8000-markmcl25-project41-o0vfyfnhrqc.ws-eu116.gitpod.io',
+    'https://8000-markmcl25-project41-zpk274etwsj.ws-eu117.gitpod.io',
     'https://newssite.herokuapp.com',
     'https://reddit-new-2d2861630b68.herokuapp.com',
 ]

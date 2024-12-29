@@ -1,19 +1,23 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif !important;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
-    min-height: 120vh;
+    min-height: 100vh; /* Adjusted for a full-screen layout */
     display: flex;
     flex-direction: column;
 }
 
 /* Container for the main content */
 .container {
-    flex: 1; 
+    flex: 1;
+    margin: 0 auto; /* Center the content if necessary */
+    padding: 20px; /* Add padding for better spacing */
+    max-width: 1200px; /* Limit maximum width for better readability */
 }
 
+/* Header Styling */
 header {
     background-color: #333;
     color: #fff;
@@ -21,104 +25,216 @@ header {
     text-align: center;
 }
 
-nav ul {
+/* Navbar Styling */
+.navbar {
+    background-color: #343a40;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+
+.navbar .navbar-brand {
+    color: #ffffff !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .navbar-brand img {
+    height: 40px;
+    width: auto;
+    margin-right: 10px;
+}
+
+.navbar-nav {
     list-style: none;
+    display: flex;
+    margin: 0;
     padding: 0;
+}
+
+.navbar-nav .nav-item {
+    margin-left: 1rem;
+}
+
+.navbar-nav .nav-link {
+    color: #ffffff !important;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #adb5bd;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    border-bottom: 1px solid #ddd;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.card-text {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Pagination */
+.pagination {
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
 }
 
-nav ul li {
-    margin: 0 1em;
+.pagination .btn {
+    margin: 0 0.25rem;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
 }
 
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
+.pagination .btn-outline-secondary {
+    border-color: #adb5bd;
+    color: #adb5bd;
+    transition: all 0.3s ease;
 }
 
-main {
-    padding: 2em;
+.pagination .btn-outline-secondary:hover {
+    background-color: #adb5bd;
+    color: #ffffff;
 }
 
+/* Footer Styling */
 footer {
     text-align: center;
     padding: 1em 0;
     background-color: #333;
     color: #fff;
-    position: fixed;
-    bottom: 0;
+    margin-top: auto;
+    position: relative;
     width: 100%;
-    position: relative; /* Can also be fixed if needed */
 }
 
-/* Allauth Login Page Specific Styles */
-.account-container {
-    max-width: 450px;
-    margin-top: 100px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.account .card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
-
-.account .card-body {
-    padding: 20px;
+/* Forms */
+form {
+    margin: 0 auto;
+    max-width: 600px;
     background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.account .card-title {
-    text-align: center;
-    font-size: 24px;
-    color: #333;
-}
-
-.account .form-group label {
+form label {
     font-weight: bold;
     color: #333;
 }
 
-.account .form-control {
-    border-radius: 5px;
-    padding: 12px;
-    margin-bottom: 15px;
+form .form-control {
+    margin-bottom: 1rem;
+    padding: 0.75rem;
     border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
 }
 
-.account .form-control:focus {
+form .form-control:focus {
     border-color: #007bff;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.25);
 }
 
-.account .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+form .btn {
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 4px;
 }
 
-.account .btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #004085;
+/* Utility Classes */
+.text-bold {
+    font-weight: bold;
 }
 
-.account .text-center {
-    margin-top: 20px;
+.text-center {
     text-align: center;
 }
 
-.account .text-center a {
-    text-decoration: none;
-    color: #007bff;
+.margin-auto {
+    margin: auto;
 }
 
-.account .text-center a:hover {
-    text-decoration: underline;
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column;
+        background-color: #343a40;
+        width: 100%;
+        padding: 0.5rem 0;
+        display: none;
+    }
+
+    .navbar-nav.show {
+        display: flex;
+    }
+
+    .navbar-toggler {
+        display: inline-block;
+    }
+
+    .card {
+        margin-bottom: 1rem;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+    }
 }
 
+/* Add margin to the section under "Join the Discussion" */
+.feature-section {
+    margin-bottom: 2rem; /* Adjust this value for the desired gap size */
+}
 
+/* Add margin to the "Latest Posts" heading */
+.latest-posts {
+    margin-top: 3rem; /* Adjust this value for the desired gap size */
+}
