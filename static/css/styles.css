@@ -1,6 +1,6 @@
 /* General Styles */
 body {
-    font-family: Arial, sans-serif !important;
+    font-family: 'Roboto', Arial, sans-serif !important; /* Updated font for modern styling */
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
@@ -12,8 +12,8 @@ body {
 /* Container for the main content */
 .container {
     flex: 1;
-    margin: 0 auto; /* Center the content if necessary */
-    padding: 20px; /* Add padding for better spacing */
+    margin: 0 auto;
+    padding: 20px;
     max-width: 1200px; /* Limit maximum width for better readability */
 }
 
@@ -33,9 +33,10 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
 }
 
-.navbar .navbar-brand {
+.navbar-brand {
     color: #ffffff !important;
     font-weight: bold;
     font-size: 1.5rem;
@@ -43,14 +44,26 @@ header {
     align-items: center;
 }
 
-.navbar .navbar-brand img {
+.navbar-brand img {
     height: 40px;
     width: auto;
     margin-right: 10px;
 }
 
+.navbar-toggler {
+    border: none;
+    background-color: #007bff;
+    padding: 0.5rem;
+    border-radius: 4px;
+    color: #fff;
+}
+
+.navbar-toggler:hover {
+    background-color: #0056b3;
+}
+
 .navbar-nav {
-    list-style: none;
+    list-style: none; /* Ensure no bullet points */
     display: flex;
     margin: 0;
     padding: 0;
@@ -152,6 +165,7 @@ footer {
     margin-top: auto;
     position: relative;
     width: 100%;
+    font-size: 0.9rem;
 }
 
 /* Forms */
@@ -216,10 +230,6 @@ form .btn {
         display: flex;
     }
 
-    .navbar-toggler {
-        display: inline-block;
-    }
-
     .card {
         margin-bottom: 1rem;
     }
@@ -231,10 +241,10 @@ form .btn {
 
 /* Add margin to the section under "Join the Discussion" */
 .feature-section {
-    margin-bottom: 2rem; /* Adjust this value for the desired gap size */
+    margin-bottom: 2rem;
 }
 
 /* Add margin to the "Latest Posts" heading */
 .latest-posts {
-    margin-top: 3rem; /* Adjust this value for the desired gap size */
+    margin-top: 3rem;
 }
