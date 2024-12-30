@@ -122,6 +122,21 @@ header {
     color: #adb5bd;
 }
 
+.navbar-nav .nav-item button {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.85rem;
+    background: none;
+    border: none;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-item button:hover {
+    color: #adb5bd;
+}
+
 /* Cards */
 .card {
     border: none;
@@ -263,7 +278,7 @@ footer {
 /* Forms */
 form {
     margin: 0 auto;
-    max-width: 600px;
+    max-width: 800px; /* Increased width for Create Post Form */
     background-color: #fff;
     padding: 2rem;
     border-radius: 8px;
@@ -329,13 +344,4 @@ form .btn {
     .pagination {
         flex-wrap: wrap;
     }
-}
-
-/* Feature and Posts Sections */
-.feature-section {
-    margin-bottom: 2rem;
-}
-
-.latest-posts {
-    margin-top: 3rem;
 }
