@@ -122,6 +122,10 @@ header {
     color: #adb5bd;
 }
 
+.navbar-brand {
+    text-decoration: none; /* Removes the underline */
+}
+
 .navbar-nav .nav-item button {
     padding: 0.25rem 0.5rem;
     font-size: 0.85rem;
