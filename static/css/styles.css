@@ -1,23 +1,62 @@
 /* General Styles */
 body {
-    font-family: 'Roboto', Arial, sans-serif !important; /* Updated font for modern styling */
+    font-family: 'Roboto', Arial, sans-serif !important;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
-    min-height: 100vh; /* Adjusted for a full-screen layout */
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-/* Container for the main content */
+ul, ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul li a, ol li a {
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+ul li a:hover, ol li a:hover {
+    color: #007bff;
+    background-color: #f8f9fa;
+}
+
+/* Div-specific List Styling */
+div ul, div ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+div ul li, div ol li {
+    margin-bottom: 0.5rem;
+}
+
+div ul li a, div ol li a {
+    text-decoration: none;
+    display: block;
+}
+
+div ul li a:hover, div ol li a:hover {
+    color: #007bff;
+    background-color: #f8f9fa;
+}
+
+/* Container */
 .container {
     flex: 1;
     margin: 0 auto;
     padding: 20px;
-    max-width: 1200px; /* Limit maximum width for better readability */
+    max-width: 1200px;
 }
 
-/* Header Styling */
+/* Header */
 header {
     background-color: #333;
     color: #fff;
@@ -25,19 +64,19 @@ header {
     text-align: center;
 }
 
-/* Navbar Styling */
+/* Navbar */
 .navbar {
     background-color: #343a40;
-    color: #ffffff;
+    color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-brand {
-    color: #ffffff !important;
+    color: #fff !important;
     font-weight: bold;
     font-size: 1.5rem;
     display: flex;
@@ -46,7 +85,6 @@ header {
 
 .navbar-brand img {
     height: 40px;
-    width: auto;
     margin-right: 10px;
 }
 
@@ -56,6 +94,7 @@ header {
     padding: 0.5rem;
     border-radius: 4px;
     color: #fff;
+    transition: background-color 0.3s ease;
 }
 
 .navbar-toggler:hover {
@@ -63,7 +102,6 @@ header {
 }
 
 .navbar-nav {
-    list-style: none; /* Ensure no bullet points */
     display: flex;
     margin: 0;
     padding: 0;
@@ -74,7 +112,7 @@ header {
 }
 
 .navbar-nav .nav-link {
-    color: #ffffff !important;
+    color: #fff !important;
     font-weight: 500;
     text-decoration: none;
     transition: color 0.3s ease;
@@ -89,7 +127,6 @@ header {
     border: none;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -130,6 +167,33 @@ header {
     transform: scale(1.05);
 }
 
+/* Posts List */
+.list-group {
+    padding: 0;
+    margin: 0;
+}
+
+.list-group-item {
+    border: none;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.list-group-item:hover {
+    color: #007bff;
+    background-color: #f8f9fa;
+    text-decoration: underline;
+}
+
+.list-group-item a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+}
+
 /* Pagination */
 .pagination {
     display: flex;
@@ -153,18 +217,46 @@ header {
 
 .pagination .btn-outline-secondary:hover {
     background-color: #adb5bd;
-    color: #ffffff;
+    color: #fff;
 }
 
-/* Footer Styling */
+/* Posts List */
+.list-group {
+    padding: 0;
+    margin: 0;
+}
+
+.list-group-item {
+    border: none;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+}
+
+.list-group-item a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.list-group-item a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Footer */
 footer {
     text-align: center;
     padding: 1em 0;
     background-color: #333;
     color: #fff;
     margin-top: auto;
-    position: relative;
-    width: 100%;
     font-size: 0.9rem;
 }
 
@@ -239,12 +331,11 @@ form .btn {
     }
 }
 
-/* Add margin to the section under "Join the Discussion" */
+/* Feature and Posts Sections */
 .feature-section {
     margin-bottom: 2rem;
 }
 
-/* Add margin to the "Latest Posts" heading */
 .latest-posts {
     margin-top: 3rem;
 }

@@ -3,8 +3,7 @@ from django import forms
 from .models import Post, Category, Comment, UserProfile
 from django.contrib.auth.models import User
 
-
-class SignupForm(forms.ModelForm):
+class SignupForm(UserCreationForm):
     avatar = forms.ImageField(
         required=False,  # Make it optional
         widget=forms.ClearableFileInput(attrs={'class': 'form-control'})
@@ -12,80 +11,52 @@ class SignupForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'email', 'password1', 'password2']
 
     def save(self, commit=True):
         user = super().save(commit=False)
         if commit:
             user.save()
-            # Save the UserProfile with the avatar
             UserProfile.objects.create(user=user, avatar=self.cleaned_data.get('avatar'))
         return user
 
 class PostForm(forms.ModelForm):
-    # Define the category field with a custom widget
     category = forms.ModelChoiceField(
         queryset=Category.objects.all(),
-        empty_label="Select Category",  # Placeholder text for the dropdown
+        empty_label="Select Category",
         required=True,
         widget=forms.Select(attrs={'class': 'form-select', 'aria-label': 'Category'})
     )
-
-    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter title'}))
-    content = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter content'}))
-    featured_image = forms.ImageField(
-        required=False,  # Allow the field to be optional
-        widget=forms.ClearableFileInput(attrs={'class': 'form-control'})
-    )
-
-    class Meta:
-        model = Post
-        fields = ['title', 'content', 'category', 'featured_image']
-    
-    # Define the title field with a custom widget and placeholder
-    title = forms.CharField(
-        max_length=255,
-        widget=forms.TextInput(attrs={
-            'class': 'form-control', 
-            'placeholder': 'Enter post title', 
-            'aria-label': 'Post Title'
-        })
-    )
-
-    # Define the subtitle field with a custom widget and placeholder
+    title = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Enter post title',
+        'aria-label': 'Post Title'
+    }))
     subtitle = forms.CharField(
         max_length=300,
-        required=False,  # Optional field
+        required=False,
         widget=forms.TextInput(attrs={
-            'class': 'form-control', 
-            'placeholder': 'Enter a subtitle (optional)', 
+            'class': 'form-control',
+            'placeholder': 'Enter a subtitle (optional)',
             'aria-label': 'Subtitle'
         })
     )
-    
-    # Define the content field with a custom widget and placeholder
-    content = forms.CharField(
-        widget=forms.Textarea(attrs={
-            'class': 'form-control', 
-            'rows': 4, 
-            'placeholder': 'Enter post content...', 
-            'aria-label': 'Post Content'
-        })
-    )
-    
-    # Define the URL field with a custom widget and placeholder
+    content = forms.CharField(widget=forms.Textarea(attrs={
+        'class': 'form-control',
+        'rows': 4,
+        'placeholder': 'Enter post content...',
+        'aria-label': 'Post Content'
+    }))
     url = forms.URLField(
-        required=False,  # Optional field
+        required=False,
         widget=forms.URLInput(attrs={
-            'class': 'form-control', 
-            'placeholder': 'Enter external URL (optional)', 
+            'class': 'form-control',
+            'placeholder': 'Enter external URL (optional)',
             'aria-label': 'External URL'
         })
     )
-    
-    # Define the image field with a custom widget
     featured_image = forms.ImageField(
-        required=False,  # Optional field
+        required=False,
         widget=forms.ClearableFileInput(attrs={'class': 'form-control'})
     )
 
@@ -109,7 +80,7 @@ class CommentForm(forms.ModelForm):
             'body': forms.Textarea(attrs={
                 'class': 'form-control', 
                 'placeholder': 'Your comment',
-                'rows': 4,  # Adjust rows to reduce initial height
+                'rows': 4,
                 'style': 'max-height: 150px; overflow-y: auto;',
             }),
         }
