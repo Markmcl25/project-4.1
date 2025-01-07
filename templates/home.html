@@ -8,57 +8,34 @@
     <p class="text-left text-secondary lead">Your go-to platform for the latest news and trending topics. Stay informed and join the discussion!</p>
 
     <!-- Feature Sections -->
-    <div class="row">
+    <div class="row gx-4 gy-4">
         <div class="col-md-4">
-            <div class="card mb-4 shadow-lg h-100 border-0">
-                <div class="card-body">
-                    <h5 class="card-title text-dark font-weight-bold">🔥 Trending News</h5>
+            <div class="card shadow-lg h-100 border-0" style="padding: 2rem;">
+                <div class="card-body text-left">
+                    <h5 class="card-title text-dark">Trending News</h5>
                     <p class="card-text">Discover the hottest topics being discussed right now.</p>
-                    <a href="{% url 'posts' %}" class="btn btn-primary btn-block">Explore Trending Posts</a>
+                    <a href="{% url 'posts' %}" class="btn btn-secondary btn-block">Explore Trending Posts</a>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card mb-4 shadow-lg h-100 border-0">
-                <div class="card-body">
-                    <h5 class="card-title text-dark font-weight-bold">📰 Latest Posts</h5>
+            <div class="card shadow-lg h-100 border-0" style="padding: 2rem;">
+                <div class="card-body text-left">
+                    <h5 class="card-title text-dark">Latest Posts</h5>
                     <p class="card-text">Catch up on the most recent articles posted by our community.</p>
-                    <a href="{% url 'posts' %}" class="btn btn-success btn-block">View Latest</a>
+                    <a href="{% url 'posts' %}" class="btn btn-secondary btn-block">View Latest</a>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card mb-4 shadow-lg h-100 border-0">
-                <div class="card-body">
-                    <h5 class="card-title text-dark font-weight-bold">💬 Join the Discussion</h5>
+            <div class="card shadow-lg h-100 border-0" style="padding: 2rem;">
+                <div class="card-body text-left">
+                    <h5 class="card-title text-dark">Join the Discussion</h5>
                     <p class="card-text">Engage with others and share your thoughts on various topics.</p>
-                    <a href="{% url 'create_post' %}" class="btn btn-warning btn-block">Post Your Thoughts</a>
+                    <a href="{% url 'create_post' %}" class="btn btn-secondary btn-block">Post Your Thoughts</a>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Latest Posts Section -->
-    <h2 class="mt-5 text-left font-weight-bold">Latest Posts</h2>
-    <div class="row">
-        {% if posts %}
-            {% for post in posts %}
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm h-100 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title text-primary font-weight-bold">{{ post.title|truncatewords:8 }}</h5>
-                            <p class="card-text">{{ post.content|truncatewords:20 }}</p>
-                            <a href="{% url 'post_detail' post.id %}" class="btn btn-outline-primary">Read More</a>
-                        </div>
-                        <div class="card-footer bg-white border-0">
-                            <small class="text-muted">Posted on {{ post.created_on|date:"F j, Y" }}</small>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p class="text-muted text-left">No posts available. Be the first to post something interesting!</p>
-        {% endif %}
     </div>
 
     <!-- Pagination -->
