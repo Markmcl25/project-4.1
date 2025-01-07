@@ -101,6 +101,11 @@ header {
     background-color: #0056b3;
 }
 
+.div.card-body.text-center {
+    margin-left: 0;
+}
+                  
+
 .navbar-nav {
     display: flex;
     margin: 0;
@@ -147,6 +152,7 @@ header {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 1rem;
 }
 
 .card:hover {
@@ -161,18 +167,21 @@ header {
 
 .card-body {
     padding: 1.5rem;
+    text-align: left;
 }
 
 .card-title {
     font-size: 1.25rem;
     font-weight: bold;
     color: #333;
+    margin-left: 0;
 }
 
 .card-text {
     color: #666;
     font-size: 0.95rem;
     line-height: 1.5;
+    margin-left: 0;
 }
 
 .btn-primary {

@@ -4,66 +4,77 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h1 class="mb-4 text-center">Welcome to NewsSite</h1>
-    <p class="text-center text-muted">Your go-to platform for the latest news and trending topics.</p>
-    
+    <h1 class="mb-4 text-left font-weight-bold">Welcome to NewsSite</h1>
+    <p class="text-left text-secondary lead">Your go-to platform for the latest news and trending topics. Stay informed and join the discussion!</p>
+
     <!-- Feature Sections -->
     <div class="row">
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm h-100">
-                <div class="card-body text-center">
-                    <h5 class="card-title text-primary">Trending News</h5>
-                    <p class="card-text text-muted">Discover the hottest topics being discussed right now.</p>
-                    <a href="{% url 'posts' %}" class="btn btn-outline-primary">Explore Posts</a>
+            <div class="card mb-4 shadow-lg h-100 border-0">
+                <div class="card-body">
+                    <h5 class="card-title text-dark font-weight-bold">🔥 Trending News</h5>
+                    <p class="card-text">Discover the hottest topics being discussed right now.</p>
+                    <a href="{% url 'posts' %}" class="btn btn-primary btn-block">Explore Trending Posts</a>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm h-100">
-                <div class="card-body text-center">
-                    <h5 class="card-title text-primary">Latest Posts</h5>
-                    <p class="card-text text-muted">Catch up on the most recent articles posted by our community.</p>
-                    <a href="{% url 'posts' %}" class="btn btn-outline-primary">View Latest</a>
+            <div class="card mb-4 shadow-lg h-100 border-0">
+                <div class="card-body">
+                    <h5 class="card-title text-dark font-weight-bold">📰 Latest Posts</h5>
+                    <p class="card-text">Catch up on the most recent articles posted by our community.</p>
+                    <a href="{% url 'posts' %}" class="btn btn-success btn-block">View Latest</a>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card mb-4 shadow-sm h-100">
-                <div class="card-body text-center">
-                    <h5 class="card-title text-primary">Join the Discussion</h5>
-                    <p class="card-text text-muted">Engage with others and share your thoughts on various topics.</p>
-                    <a href="{% url 'posts' %}" class="btn btn-outline-primary">Join Now</a>
+            <div class="card mb-4 shadow-lg h-100 border-0">
+                <div class="card-body">
+                    <h5 class="card-title text-dark font-weight-bold">💬 Join the Discussion</h5>
+                    <p class="card-text">Engage with others and share your thoughts on various topics.</p>
+                    <a href="{% url 'create_post' %}" class="btn btn-warning btn-block">Post Your Thoughts</a>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Latest Posts Section -->
-    <h2 class="mt-5 text-center">Latest Posts</h2>
+    <h2 class="mt-5 text-left font-weight-bold">Latest Posts</h2>
     <div class="row">
-        {% for post in posts %}
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm h-100">
-                    <div class="card-body text-center">
-                        <h5 class="card-title text-primary">{{ post.title }}</h5>
-                        <p class="card-text text-muted">{{ post.content|truncatewords:20 }}</p>
-                        <a href="{% url 'post_detail' post.id %}" class="btn btn-outline-primary">Read More</a>
+        {% if posts %}
+            {% for post in posts %}
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm h-100 border-0">
+                        <div class="card-body">
+                            <h5 class="card-title text-primary font-weight-bold">{{ post.title|truncatewords:8 }}</h5>
+                            <p class="card-text">{{ post.content|truncatewords:20 }}</p>
+                            <a href="{% url 'post_detail' post.id %}" class="btn btn-outline-primary">Read More</a>
+                        </div>
+                        <div class="card-footer bg-white border-0">
+                            <small class="text-muted">Posted on {{ post.created_on|date:"F j, Y" }}</small>
+                        </div>
                     </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            <p class="text-muted text-left">No posts available. Be the first to post something interesting!</p>
+        {% endif %}
     </div>
 
     <!-- Pagination -->
-    <div class="pagination text-center mt-4">
-        {% if posts.has_previous %}
-            <a href="?page=1" class="btn btn-sm btn-outline-secondary">&laquo; First</a>
-            <a href="?page={{ posts.previous_page_number }}" class="btn btn-sm btn-outline-secondary">Previous</a>
-        {% endif %}
-        <span class="btn btn-sm btn-outline-secondary disabled">Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
-        {% if posts.has_next %}
-            <a href="?page={{ posts.next_page_number }}" class="btn btn-sm btn-outline-secondary">Next</a>
-            <a href="?page={{ posts.paginator.num_pages }}" class="btn btn-sm btn-outline-secondary">Last &raquo;</a>
+    <div class="text-left mt-4">
+        {% if posts.has_previous or posts.has_next %}
+            <div class="pagination">
+                {% if posts.has_previous %}
+                    <a href="?page=1" class="btn btn-sm btn-outline-secondary">&laquo; First</a>
+                    <a href="?page={{ posts.previous_page_number }}" class="btn btn-sm btn-outline-secondary">Previous</a>
+                {% endif %}
+                <span class="btn btn-sm btn-outline-secondary disabled">Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
+                {% if posts.has_next %}
+                    <a href="?page={{ posts.next_page_number }}" class="btn btn-sm btn-outline-secondary">Next</a>
+                    <a href="?page={{ posts.paginator.num_pages }}" class="btn btn-sm btn-outline-secondary">Last &raquo;</a>
+                {% endif %}
+            </div>
         {% endif %}
     </div>
 </div>

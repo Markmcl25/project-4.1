@@ -16,8 +16,9 @@ from reddit.views import (
     upvote_post,
     downvote_post,
     UserPostListView,
+    category_page,  # Import category_page
 )
-from django.contrib.auth.views import LogoutView, LoginView
+from django.contrib.auth.views import LogoutView
 from django.contrib.auth import views as auth_views
 
 urlpatterns = [
@@ -42,6 +43,7 @@ urlpatterns = [
     # Categories
     path('categories/', category_list, name='categories'),
     path('categories/<slug:category_slug>/', category_list, name='category_list'),
+    path('category/<str:category_name>/', category_page, name='category_page'),  # Updated
 
     # Post Details and Editing
     path('post/<int:pk>/', PostDetail.as_view(), name='post_detail'),
