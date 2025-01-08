@@ -50,4 +50,12 @@
                 <a href="?page={{ posts.previous_page_number }}" class="btn btn-sm btn-outline-secondary">Previous</a>
             {% endif %}
             <span class="btn btn-sm btn-outline-secondary disabled">
-                Page {{ posts.number }} of {{ po
+                Page {{ posts.number }} of {{ posts.paginator.num_pages }}
+            </span>
+            {% if posts.has_next %}
+                <a href="?page={{ posts.next_page_number }}" class="btn btn-sm btn-outline-secondary">Next</a>
+                <a href="?page={{ posts.paginator.num_pages }}" class="btn btn-sm btn-outline-secondary">Last &raquo;</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

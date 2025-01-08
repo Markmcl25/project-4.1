@@ -29,7 +29,7 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
 
     # Home Page (All Posts)
-    path('', PostList.as_view(template_name='home.html'), name='home'),
+    path('', PostList.as_view(template_name='index.html'), name='home'),
 
     # User-Specific Posts
     path('user/posts/', UserPostListView.as_view(), name='user_posts'),
@@ -60,7 +60,7 @@ urlpatterns = [
     path('accounts/signup/', custom_signup, name='signup'),
     path('signup/confirmation/', signup_confirmation, name='signup_confirmation'),
     path('accounts/login/', custom_login, name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', LogoutView.as_view(), name='logged_out'),
 
     # Password Reset (Django Built-in Views)
     path('password_reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
