@@ -27,22 +27,6 @@
         <!-- Add space between sections -->
         <div class="my-5"></div>
 
-        <!-- Latest Posts Section -->
-        <h2 class="mt-5 text-center">Latest Posts</h2>
-        <div class="row">
-            {% for post in posts %}
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm h-100">
-                        <div class="card-body">
-                            <h5 class="card-title text-primary">{{ post.title }}</h5>
-                            <p class="card-text text-muted">{{ post.content|truncatewords:20 }}</p>
-                            <a href="{% url 'post_detail' post.id %}" class="btn btn-outline-primary">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-
         <!-- Pagination -->
         <div class="pagination text-center mt-4">
             {% if posts.has_previous %}

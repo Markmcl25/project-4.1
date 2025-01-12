@@ -99,7 +99,7 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Login and Allauth
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/index/'
 LOGOUT_REDIRECT_URL = '/logged_out/'
 LOGIN_URL = 'accounts/login/'
 ACCOUNT_AUTHENTICATION_METHOD = 'username'

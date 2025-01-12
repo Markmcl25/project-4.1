@@ -27,123 +27,119 @@ ul li a:hover, ol li a:hover {
     background-color: #f8f9fa;
 }
 
-/* Div-specific List Styling */
-div ul, div ol {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-div ul li, div ol li {
-    margin-bottom: 0.5rem;
-}
-
-div ul li a, div ol li a {
-    text-decoration: none;
-    display: block;
-}
-
-div ul li a:hover, div ol li a:hover {
-    color: #007bff;
-    background-color: #f8f9fa;
-}
-
-/* Container */
-.container {
-    flex: 1;
-    margin: 0 auto;
-    padding: 20px;
-    max-width: 1200px;
-}
-
-/* Header */
+/* Header Styles */
 header {
-    background-color: #333;
+    background-color: #343a40;  /* Matches the Bootstrap 'bg-dark' class */
     color: #fff;
-    padding: 1em 0;
-    text-align: center;
-}
-
-/* Navbar */
-.navbar {
-    background-color: #343a40;
-    color: #fff;
+    padding: 1rem 1.5rem;  /* Adds more padding for a polished navbar */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1030;  /* Ensures header is above the main content */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-brand {
-    color: #fff !important;
     font-weight: bold;
     font-size: 1.5rem;
+    text-decoration: none;
+    color: #fff;
+}
+
+.navbar-brand:hover {
+    color: #adb5bd;
+}
+
+/* Burger Icon */
+#nav-toggle {
+    display: none;  /* Hide checkbox by default */
+}
+
+.nav-toggle-label {
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
     display: flex;
     align-items: center;
 }
 
-.navbar-brand img {
-    height: 40px;
-    margin-right: 10px;
+.nav-toggle-label::before {
+    content: '☰';  /* Default burger icon */
 }
 
-.navbar-toggler {
-    border: none;
-    background-color: #007bff;
-    padding: 0.5rem;
-    border-radius: 4px;
-    color: #fff;
-    transition: background-color 0.3s ease;
+#nav-toggle:checked + .nav-toggle-label::before {
+    content: '✖';  /* Close icon when toggled */
 }
 
-.navbar-toggler:hover {
-    background-color: #0056b3;
+/* Navigation Menu */
+nav {
+    width: 100%;
 }
 
-.div.card-body.text-center {
-    margin-left: 0;
+#menu {
+    display: none;
+    flex-direction: column;
+    background-color: #343a40;
+    padding: 1rem;
+    position: absolute;
+    width: 100%;
+    top: 70px;  /* Offset to avoid overlap with the header */
 }
-                  
 
-.navbar-nav {
+#nav-toggle:checked + .nav-toggle-label + nav #menu {
     display: flex;
-    margin: 0;
-    padding: 0;
 }
 
-.navbar-nav .nav-item {
-    margin-left: 1rem;
+.nav-item {
+    padding: 0.5rem 1rem;
 }
 
-.navbar-nav .nav-link {
-    color: #fff !important;
+.nav-link {
+    color: white;
     font-weight: 500;
     text-decoration: none;
+    padding: 0.5rem 1rem;
     transition: color 0.3s ease;
 }
 
-.navbar-nav .nav-link:hover {
+.nav-link:hover {
     color: #adb5bd;
 }
 
-.navbar-brand {
-    text-decoration: none; /* Removes the underline */
+.nav-item + .nav-item {
+    margin-left: 0;
 }
 
-.navbar-nav .nav-item button {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.85rem;
-    background: none;
-    border: none;
-    color: #fff;
-    text-decoration: none;
-    cursor: pointer;
-    transition: color 0.3s ease;
+/* Desktop Navigation */
+@media (min-width: 768px) {
+    .nav-toggle-label {
+        display: none;  /* Hide burger icon for larger screens */
+    }
+
+    #menu {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        background-color: transparent;
+        position: static;
+        padding: 0;
+    }
+
+    .nav-item {
+        padding: 0;
+    }
+
+    .nav-link {
+        padding: 0.5rem 1rem;
+    }
 }
 
-.navbar-nav .nav-item button:hover {
-    color: #adb5bd;
+/* Main Content Padding */
+main {
+    padding-top: 80px;  /* Ensures content is not hidden behind fixed header */
 }
 
 /* Cards */
@@ -174,14 +170,12 @@ header {
     font-size: 1.25rem;
     font-weight: bold;
     color: #333;
-    margin-left: 0;
 }
 
 .card-text {
     color: #666;
     font-size: 0.95rem;
     line-height: 1.5;
-    margin-left: 0;
 }
 
 .btn-primary {
@@ -193,89 +187,6 @@ header {
 .btn-primary:hover {
     background-color: #0056b3;
     transform: scale(1.05);
-}
-
-/* Posts List */
-.list-group {
-    padding: 0;
-    margin: 0;
-}
-
-.list-group-item {
-    border: none;
-    padding: 0.75rem 1rem;
-    margin-bottom: 1rem;
-    background-color: transparent;
-    transition: color 0.3s ease, background-color 0.3s ease;
-    cursor: pointer;
-}
-
-.list-group-item:hover {
-    color: #007bff;
-    background-color: #f8f9fa;
-    text-decoration: underline;
-}
-
-.list-group-item a {
-    text-decoration: none;
-    color: inherit;
-    font-weight: 500;
-}
-
-/* Pagination */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
-}
-
-.pagination .btn {
-    margin: 0 0.25rem;
-    font-size: 0.9rem;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-}
-
-.pagination .btn-outline-secondary {
-    border-color: #adb5bd;
-    color: #adb5bd;
-    transition: all 0.3s ease;
-}
-
-.pagination .btn-outline-secondary:hover {
-    background-color: #adb5bd;
-    color: #fff;
-}
-
-/* Posts List */
-.list-group {
-    padding: 0;
-    margin: 0;
-}
-
-.list-group-item {
-    border: none;
-    padding: 0.75rem 1rem;
-    margin-bottom: 1rem;
-    background-color: transparent;
-    transition: background-color 0.3s ease;
-}
-
-.list-group-item:hover {
-    background-color: #f8f9fa;
-}
-
-.list-group-item a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.list-group-item a:hover {
-    color: #0056b3;
-    text-decoration: underline;
 }
 
 /* Footer */
@@ -291,7 +202,7 @@ footer {
 /* Forms */
 form {
     margin: 0 auto;
-    max-width: 800px; /* Increased width for Create Post Form */
+    max-width: 800px;
     background-color: #fff;
     padding: 2rem;
     border-radius: 8px;
@@ -324,37 +235,9 @@ form .btn {
 }
 
 /* Utility Classes */
-.text-bold {
-    font-weight: bold;
-}
-
 .text-center {
     text-align: center;
 }
-
 .margin-auto {
     margin: auto;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .navbar-nav {
-        flex-direction: column;
-        background-color: #343a40;
-        width: 100%;
-        padding: 0.5rem 0;
-        display: none;
-    }
-
-    .navbar-nav.show {
-        display: flex;
-    }
-
-    .card {
-        margin-bottom: 1rem;
-    }
-
-    .pagination {
-        flex-wrap: wrap;
-    }
 }
