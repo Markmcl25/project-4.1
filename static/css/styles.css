@@ -27,18 +27,27 @@ ul li a:hover, ol li a:hover {
     background-color: #f8f9fa;
 }
 
-/* Header Styles */
+/* Header/Navbar */
 header {
-    background-color: #343a40;  /* Matches the Bootstrap 'bg-dark' class */
+    background-color: #343a40;
     color: #fff;
-    padding: 1rem 1.5rem;  /* Adds more padding for a polished navbar */
-    width: 100%;
+    padding: 1rem 1.5rem;
     position: fixed;
-    top: 0;
-    z-index: 1030;  /* Ensures header is above the main content */
+    width: 100%;
+    z-index: 1030;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 70px; /* Fixed navbar height */
+}
+
+.main-content-wrapper {
+    padding-top: 60px; /* Padding to account for navbar height */
+}
+
+main {
+    margin-top: 20px; /* Adds a gap between the navbar and main content */
+    padding-top: 90px; /* Adjust to match the navbar height if needed */
 }
 
 .navbar-brand {
@@ -52,18 +61,19 @@ header {
     color: #adb5bd;
 }
 
-/* Burger Icon */
+/* Mobile Burger Icon */
 #nav-toggle {
-    display: none;  /* Hide checkbox by default */
+    display: none;
 }
 
 .nav-toggle-label {
     font-size: 2rem;
     color: white;
     cursor: pointer;
-    padding: 0.5rem 1rem;
     display: flex;
     align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
 }
 
 .nav-toggle-label::before {
@@ -71,7 +81,7 @@ header {
 }
 
 #nav-toggle:checked + .nav-toggle-label::before {
-    content: '✖';  /* Close icon when toggled */
+    content: '✖';  /* Close icon when menu is open */
 }
 
 /* Navigation Menu */
@@ -80,13 +90,15 @@ nav {
 }
 
 #menu {
-    display: none;
+    display: none;  /* Hidden by default (for mobile) */
     flex-direction: column;
     background-color: #343a40;
     padding: 1rem;
     position: absolute;
+    top: 70px; /* Aligned to the bottom of the navbar */
+    left: 0;
     width: 100%;
-    top: 70px;  /* Offset to avoid overlap with the header */
+    border-top: 1px solid #495057;
 }
 
 #nav-toggle:checked + .nav-toggle-label + nav #menu {
@@ -113,33 +125,34 @@ nav {
     margin-left: 0;
 }
 
-/* Desktop Navigation */
+/* Desktop View */
 @media (min-width: 768px) {
     .nav-toggle-label {
-        display: none;  /* Hide burger icon for larger screens */
+        display: none;  /* Hide burger icon on desktop */
     }
 
     #menu {
         display: flex;
-        flex-direction: row;
         justify-content: flex-end;
+        flex-direction: row;
         background-color: transparent;
         position: static;
         padding: 0;
     }
 
+    .navbar-nav {
+        display: flex;
+        margin-left: auto; /* Push links to the right */
+    }
+
     .nav-item {
         padding: 0;
+        margin: 0 1rem;
     }
 
     .nav-link {
         padding: 0.5rem 1rem;
     }
-}
-
-/* Main Content Padding */
-main {
-    padding-top: 80px;  /* Ensures content is not hidden behind fixed header */
 }
 
 /* Cards */
@@ -148,7 +161,10 @@ main {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    margin-bottom: 1rem;
+}
+
+.top-card-section {
+    margin-top: 2rem;  /* Creates a gap of 2rem (~32px) between navbar and card */
 }
 
 .card:hover {
@@ -156,14 +172,9 @@ main {
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
 }
 
-.card-img-top {
-    border-bottom: 1px solid #ddd;
-    object-fit: cover;
-}
-
 .card-body {
     padding: 1.5rem;
-    text-align: left;
+    text-align: center;
 }
 
 .card-title {
@@ -187,6 +198,16 @@ main {
 .btn-primary:hover {
     background-color: #0056b3;
     transform: scale(1.05);
+}
+
+/* Full-width cards for sections */
+.card-section {
+    padding: 1rem 0;
+}
+
+.card-section .card {
+    width: 100%;
+    padding: 2rem;
 }
 
 /* Footer */
@@ -234,10 +255,6 @@ form .btn {
     border-radius: 4px;
 }
 
-/* Utility Classes */
 .text-center {
     text-align: center;
-}
-.margin-auto {
-    margin: auto;
 }
