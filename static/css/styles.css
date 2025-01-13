@@ -101,6 +101,11 @@ nav {
     border-top: 1px solid #495057;
 }
 
+.container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
 #nav-toggle:checked + .nav-toggle-label + nav #menu {
     display: flex;
 }

@@ -6,47 +6,58 @@
 {% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <!-- Post Details -->
-    <div class="post-detail">
-        <h1>{{ post.title }}</h1>
-        <p class="text-muted">
-            By <strong>{{ post.author }}</strong> | 
-            Published on {{ post.created_on|date:"F j, Y" }}
-        </p>
-        {% if post.featured_image %}
-        <div class="post-image my-3">
-            <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="img-fluid">
+<div class="container py-5">
+    <!-- Post Details Section -->
+    <div class="card shadow-lg border-0 p-4">
+        <div class="post-detail">
+            <h1 class="mb-3">{{ post.title }}</h1>
+            <p class="text-muted">
+                By <strong>{{ post.author }}</strong> | 
+                Published on {{ post.created_on|date:"F j, Y" }}
+            </p>
+
+            <!-- Featured Image -->
+            {% if post.featured_image %}
+            <div class="post-image my-3">
+                <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="img-fluid rounded">
+            </div>
+            {% endif %}
+
+            <!-- Post Content -->
+            <div class="post-content mb-4">
+                <p>{{ post.content }}</p>
+            </div>
+
+            <!-- External URL -->
+            {% if post.url %}
+            <p>
+                <strong>External Link:</strong> 
+                <a href="{{ post.url }}" target="_blank" class="text-primary">
+                    Read more on the original site
+                </a>
+            </p>
+            {% endif %}
         </div>
-        {% endif %}
-        <div class="post-content">
-            <p>{{ post.content }}</p>
-        </div>
-        {% if post.url %}
-        <p>
-            <strong>External Link:</strong> 
-            <a href="{{ post.url }}" target="_blank" class="text-primary">
-                Read more on the original site
-            </a>
-        </p>
-        {% endif %}
     </div>
 
     <!-- Voting Section -->
-    <div class="voting my-4">
-        <button class="btn btn-success btn-upvote" data-post-id="{{ post.pk }}">
-            Upvote ({{ post.upvotes.count }})
-        </button>
-        <button class="btn btn-danger btn-downvote" data-post-id="{{ post.pk }}">
-            Downvote ({{ post.downvotes.count }})
-        </button>
-        <p id="total-votes-{{ post.pk }}" class="mt-2">
-            <strong>Total Votes:</strong> {{ post.total_votes }}
-        </p>
+    <div class="card shadow border-0 mt-4 p-4">
+        <div class="voting">
+            <h4 class="mb-3">Vote on this Post</h4>
+            <button class="btn btn-success btn-upvote" data-post-id="{{ post.pk }}">
+                Upvote ({{ post.upvotes.count }})
+            </button>
+            <button class="btn btn-danger btn-downvote" data-post-id="{{ post.pk }}">
+                Downvote ({{ post.downvotes.count }})
+            </button>
+            <p id="total-votes-{{ post.pk }}" class="mt-2">
+                <strong>Total Votes:</strong> {{ post.total_votes }}
+            </p>
+        </div>
     </div>
     
     <!-- Comments Section -->
-    <div id="comments" class="comments mt-5">
+    <div class="card shadow border-0 mt-5 p-4">
         <h2>Comments</h2>
         {% for comment in comments %}
         <div class="comment mb-4">
@@ -62,7 +73,7 @@
     </div>
 
     <!-- Add Comment Form -->
-    <div class="add-comment mt-5">
+    <div class="card shadow border-0 mt-5 p-4">
         <h3>Leave a Comment</h3>
         <form method="post" action="{% url 'add_comment' post.pk %}">
             {% csrf_token %}
@@ -83,10 +94,11 @@
     </div>
 
     <!-- Back Link -->
-    <div class="mt-4">
+    <div class="mt-4 text-center">
         <a href="{% url 'posts' %}" class="btn btn-secondary">Back to All Posts</a>
     </div>
 </div>
+
 {% endblock %}
 
 {% block extra_scripts %}
